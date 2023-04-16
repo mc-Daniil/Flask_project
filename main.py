@@ -2,17 +2,11 @@ from flask import Flask, render_template, redirect
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
+from data import db_session
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "Машина дикая"
-
-
-# @app.route("/")
-# @app.route("/index")
-# def index():
-#     user = "Daniil"
-#     return render_template("index.html", title="Стартовая страница", username=user)
 
 
 class LoginForm(FlaskForm):
@@ -30,10 +24,6 @@ def login():
     return render_template('login.html', title='Авторизация', form=form)
 
 
-@app.route("/success")
-def success():
-    return render_template("success.html", title="Успешная авторизация")
-
-
 if __name__ == '__main__':
+    db_session.global_init("db/base.db")
     app.run(port=8080, host="127.0.0.1")
