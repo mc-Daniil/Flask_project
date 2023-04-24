@@ -16,6 +16,8 @@ class User(SqlAlchemyBase, UserMixin):
                               index=True, unique=True, nullable=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     is_admin = sqlalchemy.Column(sqlalchemy.Boolean)
+    got = sqlalchemy.Column(sqlalchemy.Integer)
+    got_pupils = sqlalchemy.Column(sqlalchemy.Integer)
 
     kilograms = orm.relationship("Kilograms", back_populates='user')
 

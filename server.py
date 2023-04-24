@@ -3,9 +3,9 @@ from data import db_session
 from data.kilograms import Kilograms
 from forms.user import RegisterForm, LoginForm
 from data.users import User
-from flask_login import LoginManager, login_user, logout_user, login_required
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from data.A1 import A1
-from forms.pupil import PostForm
+from forms.pupil import Post1A
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "Машина дикая"
@@ -40,8 +40,13 @@ def stats():
 
 
 @app.route("/post1a", methods=["GET", "POST"])
+@login_required
 def post1a():
-    return render_template("post_form.html", title="1А")
+    form = Post1A()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+
+    return render_template("post_form.html", title="1А", form=form)
 
 
 @app.route('/logout')
