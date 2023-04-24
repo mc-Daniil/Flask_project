@@ -1,14 +1,19 @@
-import sqlalchemy
-from .db_session import SqlAlchemyBase
 import datetime
+import sqlalchemy
 from sqlalchemy import orm
 
+from .db_session import SqlAlchemyBase
 
-class Kilogram(SqlAlchemyBase):
-    __tablename__ = "kilograms"
 
-    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
+class Kilograms(SqlAlchemyBase):
+    __tablename__ = 'kilograms'
+
+    id = sqlalchemy.Column(sqlalchemy.Integer,
+                           primary_key=True, autoincrement=True)
     value = sqlalchemy.Column(sqlalchemy.Integer)
-    user_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
+    created_date = sqlalchemy.Column(sqlalchemy.DateTime,
+                                     default=datetime.datetime.now)
 
-    user = orm.relationship("User")
+    user_id = sqlalchemy.Column(sqlalchemy.Integer,
+                                sqlalchemy.ForeignKey("users.id"))
+    user = orm.relationship('User')

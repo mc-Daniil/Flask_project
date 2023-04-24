@@ -4,7 +4,6 @@
 <h1>Регистрация</h1>
 <form action="" method="post">
     {{ form.hidden_tag() }}
-    {{message}}
     <p>
         {{ form.email.label }}<br>
         {{ form.email(class="form-control", type="email") }}<br>
@@ -50,8 +49,8 @@
             </p>
         {% endfor %}
     </p>
-    <p>{{ form.is_admin() }} {{ form.is_admin.label }}</p>
+    <p>{{ form.is_admin(class="form-check-input") }} {{ form.is_admin.label(class="form-check-label") }}</p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-
+    {{message}}
 </form>
 {% endblock %}

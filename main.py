@@ -1,29 +1,51 @@
 from flask import Flask, render_template, redirect
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, EmailField, TextAreaField
-from wtforms.validators import DataRequired
 from data import db_session
-from forms.user import RegisterForm
+from data.kilograms import Kilograms
+from forms.user import RegisterForm, LoginForm
 from data.users import User
-
+from flask_login import LoginManager, login_user, logout_user, login_required
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "Машина дикая"
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 
-class LoginForm(FlaskForm):
-    username = StringField('Логин', validators=[DataRequired()])
-    password = PasswordField('Пароль', validators=[DataRequired()])
-    remember_me = BooleanField('Запомнить меня')
-    submit = SubmitField('Войти')
+@login_manager.user_loader
+def load_user(user_id):
+    db_sess = db_session.create_session()
+    return db_sess.query(User).get(user_id)
 
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        return redirect("/success")
+        db_sess = db_session.create_session()
+        user = db_sess.query(User).filter(User.email == form.email.data).first()
+        if user and user.check_password(form.password.data):
+            login_user(user, remember=form.remember_me.data)
+            return redirect("/")
+        return render_template('login.html',
+                               message="Неправильный логин или пароль",
+                               form=form)
     return render_template('login.html', title='Авторизация', form=form)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")
+
+
+@app.route("/")
+@app.route("/index")
+def main_page():
+    db_sess = db_session.create_session()
+    kilograms = db_sess.query(Kilograms)
+
+    return render_template("index.html", kilograms=kilograms)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -48,10 +70,14 @@ def reqister():
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
-        return redirect('/login')
+        return redirect('/')
     return render_template('register.html', title='Регистрация', form=form)
 
 
-if __name__ == '__main__':
+def main():
     db_session.global_init("db/base.db")
-    app.run(port=8080, host="127.0.0.1")
+    app.run()
+
+
+if __name__ == '__main__':
+    main()

@@ -1,6 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Здравствуйте</h1>
-    <h1>Чтобы войти в свой аккаунт, нажмите кнопку "Войти"</h1>
+{% if current_user.is_authenticated %}
+<h1>Записи</h1>
+{% for item in kilograms%}
+<div class="col-md6 border rounded">
+    <h4>{{item.id}}</h4>
+    <div>
+        {{item.value}} килограммов
+    </div>
+    <div>
+        Автор - {{item.user.name}}</br>
+        Время написания - {{item.created_date}}
+    </div>
+</div>
+{% endfor %}
+{% endif %}
 {% endblock %}
