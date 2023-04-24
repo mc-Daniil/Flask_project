@@ -2,18 +2,7 @@
 
 {% block content %}
 {% if current_user.is_authenticated %}
-<h1>Записи</h1>
-{% for item in kilograms%}
-<div class="col-md6 border rounded">
-    <h4>{{item.id}}</h4>
-    <div>
-        {{item.value}} килограммов
-    </div>
-    <div>
-        Автор - {{item.user.name}}</br>
-        Время написания - {{item.created_date}}
-    </div>
-</div>
-{% endfor %}
+<h1>Передать информацию по классам</h1>
+<a class="btn btn-primary" href="/post1a">1А</a>
 {% endif %}
 {% endblock %}

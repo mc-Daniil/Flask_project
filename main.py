@@ -32,6 +32,16 @@ def login():
     return render_template('login.html', title='Авторизация', form=form)
 
 
+@app.route("/stats")
+def stats():
+    return render_template("base.html", title="Статитстика")
+
+
+@app.route("/post1a", methods=["GET", "POST"])
+def post1a():
+    return render_template("base.html", title="Передать 1А")
+
+
 @app.route('/logout')
 @login_required
 def logout():
