@@ -1,7 +1,6 @@
 import datetime
 import sqlalchemy
 from sqlalchemy import orm
-
 from .db_session import SqlAlchemyBase
 
 
@@ -16,4 +15,7 @@ class Kilograms(SqlAlchemyBase):
 
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))
+
+    pupil_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("A1.id"))
     user = orm.relationship('User')
+    pupil = orm.relationship("A1")

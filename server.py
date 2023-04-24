@@ -4,6 +4,8 @@ from data.kilograms import Kilograms
 from forms.user import RegisterForm, LoginForm
 from data.users import User
 from flask_login import LoginManager, login_user, logout_user, login_required
+from data.A1 import A1
+from forms.pupil import PostForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "Машина дикая"
@@ -39,7 +41,7 @@ def stats():
 
 @app.route("/post1a", methods=["GET", "POST"])
 def post1a():
-    return render_template("base.html", title="Передать 1А")
+    return render_template("post_form.html", title="1А")
 
 
 @app.route('/logout')
