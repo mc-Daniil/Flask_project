@@ -107,6 +107,11 @@ def reqister():
     return render_template('register.html', title='Регистрация', form=form)
 
 
+@app.route("/history")
+def history():
+
+
+
 def main():
     db_session.global_init("db/base.db")
     app.run()
