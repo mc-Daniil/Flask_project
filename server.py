@@ -46,6 +46,22 @@ def post1a():
     if form.validate_on_submit():
         db_sess = db_session.create_session()
 
+        pupil = db_sess.query(A1).filter(A1.name == form.name.data).first()
+        user = db_sess.query(User).filter(User.id == current_user.id).first()
+        kilo = Kilograms()
+
+        pupil.value += form.value.data
+
+        user.got_pupils += 1
+        user.got += form.value.data
+
+        kilo.value = form.value.data
+        kilo.user_id = current_user.id
+        kilo.pupil_id = pupil.id
+
+        db_sess.add(kilo)
+        db_sess.commit()
+
     return render_template("post_form.html", title="1А", form=form)
 
 

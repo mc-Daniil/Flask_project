@@ -8,7 +8,7 @@ class A1(SqlAlchemyBase):
 
     id = sqlalchemy.Column(sqlalchemy.Integer, autoincrement=True, primary_key=True)
     name = sqlalchemy.Column(sqlalchemy.String)
-    value = sqlalchemy.Column(sqlalchemy.Integer)
+    value = sqlalchemy.Column(sqlalchemy.Integer, default=0)
 
     kilo = orm.relationship("Kilograms", back_populates="pupil")
 
