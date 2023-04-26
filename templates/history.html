@@ -1,10 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>История</h1>
-{% for item in kilograms%}
+{% if current_user.is_authenticated %}
+<h1 xmlns="http://www.w3.org/1999/html">История</h1>
+{% for item in kilo%}
 <div class="col-md6 border rounded">
-
+    <h4>№{{item.id}}</h4>
+    <h5>
+        Сдано {{item.value}} кг
+    </h5>
+    <div>
+        <b>Волонтёр</b> - {{item.user.name}}</br>
+        <b>Ученик</b> - {{item.pupil.name}}, {{item.pupil.grade}}</br>
+        <b>Дата</b> - {{item.created_date}}
+    </div>
 </div>
 {% endfor %}
+{% endif %}
 {% endblock %}

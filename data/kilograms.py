@@ -16,6 +16,6 @@ class Kilograms(SqlAlchemyBase):
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))
 
-    pupil_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("A1.id"))
+    pupil_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("Pupils.id"))
     user = orm.relationship('User')
-    pupil = orm.relationship("A1")
+    pupil = orm.relationship("Pupils")

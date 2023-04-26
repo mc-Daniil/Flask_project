@@ -4,8 +4,8 @@ from data.kilograms import Kilograms
 from forms.user import RegisterForm, LoginForm
 from data.users import User
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-from data.A1 import A1
-from forms.pupil import Post1A
+from data.Pupils import Pupils
+from forms.pupil import Post
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "Машина дикая"
@@ -41,12 +41,12 @@ def stats():
 
 @app.route("/post1a", methods=["GET", "POST"])
 @login_required
-def post1a():
-    form = Post1A()
+def post():
+    form = Post()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(A1).filter(A1.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -109,11 +109,24 @@ def reqister():
 
 @app.route("/history")
 def history():
-
+    db_sess = db_session.create_session()
+    kilo = db_sess.query(Kilograms)
+    return render_template("history.html", kilo=kilo)
 
 
 def main():
     db_session.global_init("db/base.db")
+
+    db_sess = db_session.create_session()
+    for i in open("E:/Code/Python/Flask_project/db/1A.txt", encoding="utf-8").readlines():
+        pupil = Pupils()
+        pupil.name = i.strip()
+        pupil.grade = "1А"
+        db_sess.add(pupil)
+
+    db_sess.commit()
+
+
     app.run()
 
 
