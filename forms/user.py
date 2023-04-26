@@ -10,7 +10,7 @@ class RegisterForm(FlaskForm):
     name = StringField('Имя пользователя', validators=[DataRequired()])
     about = TextAreaField("Немного о пользователе")
     is_admin = BooleanField("Сделать админом")
-    submit = SubmitField('Войти')
+    submit = SubmitField('Зарегистрировать')
 
 
 class LoginForm(FlaskForm):

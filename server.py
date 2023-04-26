@@ -41,7 +41,7 @@ def stats():
 
 @app.route("/post1a", methods=["GET", "POST"])
 @login_required
-def post():
+def post1a():
     form = Post()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
@@ -115,17 +115,24 @@ def history():
     return render_template("history.html", kilo=kilo)
 
 
+@app.route("/users")
+def users():
+    db_sess = db_session.create_session()
+    user = db_sess.query(User)
+    return render_template("users.html", user=user)
+
+
 def main():
     db_session.global_init("db/base.db")
 
-    db_sess = db_session.create_session()
-    for i in open("E:/Code/Python/Flask_project/db/1A.txt", encoding="utf-8").readlines():
-        pupil = Pupils()
-        pupil.name = i.strip()
-        pupil.grade = "1А"
-        db_sess.add(pupil)
+    # db_sess = db_session.create_session()
+    # for i in open("E:/Code/Python/Flask_project/db/1A.txt", encoding="utf-8").readlines():
+    #     pupil = Pupils()
+    #     pupil.name = i.strip()
+    #     pupil.grade = "1А"
+    #     db_sess.add(pupil)
 
-    db_sess.commit()
+    # db_sess.commit()
 
 
     app.run()

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if current_user.is_authenticated %}
+<h1 xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">Пользователи</h1>
+{% for item in user%}
+    <div class="col-md6 border rounded">
+        <h4>№ {{item.id}}</h4>
+        <h4>{{item.name}}</h4>
+        <div>
+            {{item.about}}</br>
+            <b>Email</b> - {{item.email}}</br>
+            {% if item.is_admin%}
+            <b>Роль</b> - Администратор
+            {% else %}
+            <b>Роль</b> - Волонтёр
+            {% endif %}
+            </br>
+            <b>Обслужено посетителей:</b> {{item.got_pupils}}
+            </br>
+            <b>Собрано килограммов:</b> {{item.got}}
+            {% if current_user.is_admin and not item.is_admin%}
+            <a class="btn btn-danger"> Изменить пароль</a>
+            <a class="btn btn-danger">Удалить</a>
+            {% endif %}
+            </br>
+        </div>
+
+    </div>
+{% endfor %}
+{% endif %}
+{% endblock %}

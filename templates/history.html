@@ -5,9 +5,9 @@
 <h1 xmlns="http://www.w3.org/1999/html">История</h1>
 {% for item in kilo%}
 <div class="col-md6 border rounded">
-    <h4>№{{item.id}}</h4>
+    <h4>№ {{item.id}}</h4>
     <h5>
-        Сдано {{item.value}} кг
+        Сдано <b>{{item.value}}</b> кг
     </h5>
     <div>
         <b>Волонтёр</b> - {{item.user.name}}</br>
