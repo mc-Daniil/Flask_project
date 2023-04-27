@@ -19,9 +19,7 @@
             <b>Обслужено посетителей:</b> {{item.got_pupils}}
             </br>
             <b>Собрано килограммов:</b> {{item.got}}
-            {% if current_user.is_admin and not item.is_admin%}
-            <a class="btn btn-danger"> Изменить пароль</a>
-            <a class="btn btn-danger">Удалить</a>
+            {% if current_user.is_admin and not item.is_admin%}</br>
             {% endif %}
             </br>
         </div>

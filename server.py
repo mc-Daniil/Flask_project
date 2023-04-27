@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request, abort
 from data import db_session
 from data.kilograms import Kilograms
 from forms.user import RegisterForm, LoginForm
@@ -32,7 +32,6 @@ def login():
                                message="Неправильный логин или пароль",
                                form=form)
     return render_template('login.html', title='Авторизация', form=form)
-
 
 
 @app.route("/stats")
