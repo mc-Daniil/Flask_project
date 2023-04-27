@@ -11,7 +11,7 @@ class Kilograms(SqlAlchemyBase):
                            primary_key=True, autoincrement=True)
     value = sqlalchemy.Column(sqlalchemy.Integer)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
-                                     default=datetime.datetime.now)
+                                     default=(datetime.datetime.now() + datetime.timedelta(hours=3)))
 
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))

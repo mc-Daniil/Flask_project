@@ -36,7 +36,7 @@ def login():
 
 @app.route("/stats")
 def stats():
-    return render_template("base.html", title="Статитстика")
+    return render_template("stats.html", title="Статитстика")
 
 
 @app.route("/post1a", methods=["GET", "POST"])
