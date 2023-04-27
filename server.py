@@ -34,6 +34,7 @@ def login():
     return render_template('login.html', title='Авторизация', form=form)
 
 
+
 @app.route("/stats")
 def stats():
     return render_template("stats.html", title="Статитстика")
