@@ -3,7 +3,7 @@
 {% block content %}
 {% if current_user.is_authenticated %}
 {% if current_user.is_admin %}
-    <a class="btn btn-primary " href="/register">Зарегистрировать пользователя</a>
+    <a class="btn btn-warning" href="/register">Зарегистрировать пользователя</a>
 {% endif %}
 <h1 xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">Пользователи</h1>
 {% for item in user%}

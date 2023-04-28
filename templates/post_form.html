@@ -4,7 +4,7 @@
 {% if current_user.is_authenticated %}
 <form action="" method="post">
     {{ form.hidden_tag() }}
-    <h1>Отправить данные по классу</h1>
+    <h1>{{grade}} класс</h1>
     <p>
         {{form.name.label()}}
         {{form.name}}
@@ -13,7 +13,7 @@
         {{form.value.label()}}
         {{form.value}}
     </p>
-    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    <p>{{ form.submit(type="submit", class="btn btn-warning") }}</p>
 </form>
 {% endif %}
 {% endblock %}
