@@ -217,7 +217,7 @@ class Post11A(FlaskForm):
 
 class Post11B(FlaskForm):
     name = SelectField("Фамилия и имя",
-                       choices=[(i.strip()) for i in open(f"db/Grades/11Б.txt", encoding="utf-8").readlines()],
+                       choices=[(i.strip()) for i in open(f"db/Grades/11Б.txt", encoding="utf-8")],
                        validators=[DataRequired()])
     value = IntegerField("Килограммы", validators=[DataRequired()])
     submit = SubmitField("Отправить")

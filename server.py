@@ -880,16 +880,16 @@ def main():
     db_session.global_init("db/base.db")
 
     # db_sess = db_session.create_session()
-    # for j in ["1А", "2А", "2Б", "3А", "3Б", "3В", "4А", "4Б", "4В", "5А", "5Б", "5В", "6А", "6Б", "6В", ]
-    # for i in open("E:/Code/Python/Flask_project/db/Grades/1А.txt", encoding="utf-8").readlines():
-    #     pupil = Pupils()
-    #     pupil.name = i.strip()
-    #     pupil.grade = "1А"
-    #     db_sess.add(pupil)
+    # for j in ["1А", "2А", "2Б", "3А", "3Б", "3В", "4А", "4Б", "4В", "5А", "5Б", "5В", "6А", "6Б", "6В",
+    #           "7А", "7Б", "7В", "8А", "8Б", "8В", "9А", "9Б", "9В", "10А", "10Б", "10В", "11А", "11Б", "11В"]:
+    #     for i in open(f"E:/Code/Python/Flask_project/db/Grades/{j}.txt", encoding="utf-8").readlines():
+    #         pupil = Pupils()
+    #         pupil.name = i.strip()
+    #         pupil.grade = j
+    #         db_sess.add(pupil)
     #
     #
-    # db_sess.commit()
-
+    #     db_sess.commit()
 
     app.run()
 
