@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if current_user.is_admin %}
+<h1>Статистика по {{grade}} классу</h1>
+{% for item in db%}
+<div class="col-md6 border rounded">
+    <h4>{{item.name}} - {{item.value}} кг</h4>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}

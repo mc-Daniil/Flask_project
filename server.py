@@ -61,6 +61,7 @@ def post1a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="1А", form=form, grade="1А")
 
@@ -87,6 +88,7 @@ def post2a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="2А", form=form, grade="2А")
 
@@ -113,6 +115,7 @@ def post2b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="2Б", form=form, grade="2Б")
 
@@ -139,6 +142,7 @@ def post3a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="3А", form=form, grade="3А")
 
@@ -165,6 +169,7 @@ def post3b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="3Б", form=form, grade="3Б")
 
@@ -191,6 +196,7 @@ def post3c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="3В", form=form, grade="3В")
 
@@ -217,6 +223,7 @@ def post4a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="4А", form=form, grade="4А")
 
@@ -243,6 +250,7 @@ def post4b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="4Б", form=form, grade="4Б")
 
@@ -269,6 +277,7 @@ def post4c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="4В", form=form, grade="4В")
 
@@ -295,6 +304,7 @@ def post5a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="5А", form=form, grade="5А")
 
@@ -321,6 +331,7 @@ def post5b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="5Б", form=form, grade="5Б")
 
@@ -347,6 +358,7 @@ def post5c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="5В", form=form, grade="5В")
 
@@ -373,6 +385,7 @@ def post6a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="6А", form=form, grade="6А")
 
@@ -399,6 +412,7 @@ def post6b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="6Б", form=form, grade="6Б")
 
@@ -425,6 +439,7 @@ def post6c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="6В", form=form, grade="6В")
 
@@ -451,6 +466,7 @@ def post7a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="7А", form=form, grade="7А")
 
@@ -477,6 +493,7 @@ def post7b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="7Б", form=form, grade="7Б")
 
@@ -503,6 +520,7 @@ def post7c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="7В", form=form, grade="7В")
 
@@ -529,6 +547,7 @@ def post8a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="8А", form=form, grade="8А")
 
@@ -555,6 +574,7 @@ def post8b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="8Б", form=form, grade="8Б")
 
@@ -581,6 +601,7 @@ def post8c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="8В", form=form, grade="8В")
 
@@ -607,6 +628,7 @@ def post9a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="9А", form=form, grade="9А")
 
@@ -633,6 +655,7 @@ def post9b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="9Б", form=form, grade="9Б")
 
@@ -659,6 +682,7 @@ def post9c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="9В", form=form, grade="9В")
 
@@ -685,6 +709,7 @@ def post10a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="10А", form=form, grade="10А")
 
@@ -711,6 +736,7 @@ def post10b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="10Б", form=form, grade="10Б")
 
@@ -737,6 +763,7 @@ def post10c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="10В", form=form, grade="10В")
 
@@ -763,6 +790,7 @@ def post11a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="11А", form=form, grade="11А")
 
@@ -789,6 +817,7 @@ def post11b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="11Б", form=form, grade="11Б")
 
@@ -815,8 +844,256 @@ def post11c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        return redirect("/")
 
     return render_template("post_form.html", title="11В", form=form, grade="11В")
+
+
+@app.route("/stats1a")
+@login_required
+def stats1a():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "1А").all()
+    return render_template("stats_grade.html", db=pupils, grade="1А")
+
+
+@app.route("/stats2a")
+@login_required
+def stats2a():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "2А").all()
+    return render_template("stats_grade.html", db=pupils, grade="2А")
+
+
+@app.route("/stats2b")
+@login_required
+def stats2b():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "2Б").all()
+    return render_template("stats_grade.html", db=pupils, grade="2Б")
+
+
+@app.route("/stats3a")
+@login_required
+def stats3a():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "3А").all()
+    return render_template("stats_grade.html", db=pupils, grade="3А")
+
+
+@app.route("/stats3b")
+@login_required
+def stats3b():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "3Б").all()
+    return render_template("stats_grade.html", db=pupils, grade="3Б")
+
+
+@app.route("/stats3c")
+@login_required
+def stats3c():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "3В").all()
+    return render_template("stats_grade.html", db=pupils, grade="3В")
+
+
+@app.route("/stats4a")
+@login_required
+def stats4a():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "4А").all()
+    return render_template("stats_grade.html", db=pupils, grade="4А")
+
+
+@app.route("/stats4b")
+@login_required
+def stats4b():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "4Б").all()
+    return render_template("stats_grade.html", db=pupils, grade="4Б")
+
+
+@app.route("/stats4c")
+@login_required
+def stats4c():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "4В").all()
+    return render_template("stats_grade.html", db=pupils, grade="4В")
+
+
+@app.route("/stats5a")
+@login_required
+def stats5a():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "5А").all()
+    return render_template("stats_grade.html", db=pupils, grade="5А")
+
+
+@app.route("/stats5b")
+@login_required
+def stats5b():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "5Б").all()
+    return render_template("stats_grade.html", db=pupils, grade="5Б")
+
+
+@app.route("/stats5c")
+@login_required
+def stats5c():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "5В").all()
+    return render_template("stats_grade.html", db=pupils, grade="5В")
+
+
+@app.route("/stats6a")
+@login_required
+def stats6a():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "6А").all()
+    return render_template("stats_grade.html", db=pupils, grade="6А")
+
+
+@app.route("/stats6b")
+@login_required
+def stats6b():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "6Б").all()
+    return render_template("stats_grade.html", db=pupils, grade="6Б")
+
+
+@app.route("/stats6c")
+@login_required
+def stats6c():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "6В").all()
+    return render_template("stats_grade.html", db=pupils, grade="6В")
+
+
+@app.route("/stats7a")
+@login_required
+def stats7a():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "7А").all()
+    return render_template("stats_grade.html", db=pupils, grade="7А")
+
+
+@app.route("/stats7b")
+@login_required
+def stats7b():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "7Б").all()
+    return render_template("stats_grade.html", db=pupils, grade="7Б")
+
+
+@app.route("/stats7c")
+@login_required
+def stats7c():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "7В").all()
+    return render_template("stats_grade.html", db=pupils, grade="7В")
+
+
+@app.route("/stats8a")
+@login_required
+def stats8a():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "8А").all()
+    return render_template("stats_grade.html", db=pupils, grade="8А")
+
+
+@app.route("/stats8b")
+@login_required
+def stats8b():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "8Б").all()
+    return render_template("stats_grade.html", db=pupils, grade="8Б")
+
+
+@app.route("/stats8c")
+@login_required
+def stats8c():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "8В").all()
+    return render_template("stats_grade.html", db=pupils, grade="8В")
+
+
+@app.route("/stats9a")
+@login_required
+def stats9a():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "9А").all()
+    return render_template("stats_grade.html", db=pupils, grade="9А")
+
+
+@app.route("/stats9b")
+@login_required
+def stats9b():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "9Б").all()
+    return render_template("stats_grade.html", db=pupils, grade="9Б")
+
+
+@app.route("/stats9c")
+@login_required
+def stats9c():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "9В").all()
+    return render_template("stats_grade.html", db=pupils, grade="9В")
+
+
+@app.route("/stats10a")
+@login_required
+def stats10a():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "10А").all()
+    return render_template("stats_grade.html", db=pupils, grade="10А")
+
+
+@app.route("/stats10b")
+@login_required
+def stats10b():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "10Б").all()
+    return render_template("stats_grade.html", db=pupils, grade="10Б")
+
+
+@app.route("/stats10c")
+@login_required
+def stats10c():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "10В").all()
+    return render_template("stats_grade.html", db=pupils, grade="10В")
+
+
+@app.route("/stats11a")
+@login_required
+def stats11a():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "11А").all()
+    return render_template("stats_grade.html", db=pupils, grade="11А")
+
+
+@app.route("/stats11b")
+@login_required
+def stats11b():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "11Б").all()
+    return render_template("stats_grade.html", db=pupils, grade="11Б")
+
+
+@app.route("/stats11c")
+@login_required
+def stats11c():
+    db_sess = db_session.create_session()
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "11В").all()
+    return render_template("stats_grade.html", db=pupils, grade="11В")
+
+
+@app.route("/history")
+def history():
+    db_sess = db_session.create_session()
+    kilo = db_sess.query(Kilograms)
+    return render_template("history.html", kilo=kilo)
 
 
 @app.route('/logout')
@@ -862,11 +1139,7 @@ def reqister():
     return render_template('register.html', title='Регистрация', form=form)
 
 
-@app.route("/history")
-def history():
-    db_sess = db_session.create_session()
-    kilo = db_sess.query(Kilograms)
-    return render_template("history.html", kilo=kilo)
+
 
 
 @app.route("/users")
