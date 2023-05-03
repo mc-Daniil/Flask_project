@@ -854,7 +854,7 @@ def post11c():
 def stats1a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "1А").all()
-    return render_template("stats_grade.html", db=pupils, grade="1А")
+    return render_template("stats_grade.html", db=pupils, grade="1А", title="1А статистика")
 
 
 @app.route("/stats2a")
@@ -862,7 +862,7 @@ def stats1a():
 def stats2a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "2А").all()
-    return render_template("stats_grade.html", db=pupils, grade="2А")
+    return render_template("stats_grade.html", db=pupils, grade="2А", title="2А статистика")
 
 
 @app.route("/stats2b")
@@ -870,7 +870,7 @@ def stats2a():
 def stats2b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "2Б").all()
-    return render_template("stats_grade.html", db=pupils, grade="2Б")
+    return render_template("stats_grade.html", db=pupils, grade="2Б", title="2Б статистика")
 
 
 @app.route("/stats3a")
@@ -878,7 +878,7 @@ def stats2b():
 def stats3a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "3А").all()
-    return render_template("stats_grade.html", db=pupils, grade="3А")
+    return render_template("stats_grade.html", db=pupils, grade="3А", title="3А статистика")
 
 
 @app.route("/stats3b")
@@ -886,7 +886,7 @@ def stats3a():
 def stats3b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "3Б").all()
-    return render_template("stats_grade.html", db=pupils, grade="3Б")
+    return render_template("stats_grade.html", db=pupils, grade="3Б", title="3Б статистика")
 
 
 @app.route("/stats3c")
@@ -894,7 +894,7 @@ def stats3b():
 def stats3c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "3В").all()
-    return render_template("stats_grade.html", db=pupils, grade="3В")
+    return render_template("stats_grade.html", db=pupils, grade="3В", title="3В статистика")
 
 
 @app.route("/stats4a")
@@ -902,7 +902,7 @@ def stats3c():
 def stats4a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "4А").all()
-    return render_template("stats_grade.html", db=pupils, grade="4А")
+    return render_template("stats_grade.html", db=pupils, grade="4А", title="4А статистика")
 
 
 @app.route("/stats4b")
@@ -910,7 +910,7 @@ def stats4a():
 def stats4b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "4Б").all()
-    return render_template("stats_grade.html", db=pupils, grade="4Б")
+    return render_template("stats_grade.html", db=pupils, grade="4Б", title="4Б статистика")
 
 
 @app.route("/stats4c")
@@ -918,7 +918,7 @@ def stats4b():
 def stats4c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "4В").all()
-    return render_template("stats_grade.html", db=pupils, grade="4В")
+    return render_template("stats_grade.html", db=pupils, grade="4В", title="4В статистика")
 
 
 @app.route("/stats5a")
@@ -926,7 +926,7 @@ def stats4c():
 def stats5a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "5А").all()
-    return render_template("stats_grade.html", db=pupils, grade="5А")
+    return render_template("stats_grade.html", db=pupils, grade="5А", title="5А статистика")
 
 
 @app.route("/stats5b")
@@ -934,7 +934,7 @@ def stats5a():
 def stats5b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "5Б").all()
-    return render_template("stats_grade.html", db=pupils, grade="5Б")
+    return render_template("stats_grade.html", db=pupils, grade="5Б", title="5Б статистика")
 
 
 @app.route("/stats5c")
@@ -942,7 +942,7 @@ def stats5b():
 def stats5c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "5В").all()
-    return render_template("stats_grade.html", db=pupils, grade="5В")
+    return render_template("stats_grade.html", db=pupils, grade="5В", title="5В статистика")
 
 
 @app.route("/stats6a")
@@ -950,7 +950,7 @@ def stats5c():
 def stats6a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "6А").all()
-    return render_template("stats_grade.html", db=pupils, grade="6А")
+    return render_template("stats_grade.html", db=pupils, grade="6А", title="6А статистика")
 
 
 @app.route("/stats6b")
@@ -958,7 +958,7 @@ def stats6a():
 def stats6b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "6Б").all()
-    return render_template("stats_grade.html", db=pupils, grade="6Б")
+    return render_template("stats_grade.html", db=pupils, grade="6Б", title="6Б статистика")
 
 
 @app.route("/stats6c")
@@ -966,7 +966,7 @@ def stats6b():
 def stats6c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "6В").all()
-    return render_template("stats_grade.html", db=pupils, grade="6В")
+    return render_template("stats_grade.html", db=pupils, grade="6В", title="6В статистика")
 
 
 @app.route("/stats7a")
@@ -974,7 +974,7 @@ def stats6c():
 def stats7a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "7А").all()
-    return render_template("stats_grade.html", db=pupils, grade="7А")
+    return render_template("stats_grade.html", db=pupils, grade="7А", title="7А статистика")
 
 
 @app.route("/stats7b")
@@ -982,7 +982,7 @@ def stats7a():
 def stats7b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "7Б").all()
-    return render_template("stats_grade.html", db=pupils, grade="7Б")
+    return render_template("stats_grade.html", db=pupils, grade="7Б", title="7Б статистика")
 
 
 @app.route("/stats7c")
@@ -990,7 +990,7 @@ def stats7b():
 def stats7c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "7В").all()
-    return render_template("stats_grade.html", db=pupils, grade="7В")
+    return render_template("stats_grade.html", db=pupils, grade="7В", title="7В статистика")
 
 
 @app.route("/stats8a")
@@ -998,7 +998,7 @@ def stats7c():
 def stats8a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "8А").all()
-    return render_template("stats_grade.html", db=pupils, grade="8А")
+    return render_template("stats_grade.html", db=pupils, grade="8А", title="8А статистика")
 
 
 @app.route("/stats8b")
@@ -1006,7 +1006,7 @@ def stats8a():
 def stats8b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "8Б").all()
-    return render_template("stats_grade.html", db=pupils, grade="8Б")
+    return render_template("stats_grade.html", db=pupils, grade="8Б", title="8Б статистика")
 
 
 @app.route("/stats8c")
@@ -1014,7 +1014,7 @@ def stats8b():
 def stats8c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "8В").all()
-    return render_template("stats_grade.html", db=pupils, grade="8В")
+    return render_template("stats_grade.html", db=pupils, grade="8В", title="8В статистика")
 
 
 @app.route("/stats9a")
@@ -1022,7 +1022,7 @@ def stats8c():
 def stats9a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "9А").all()
-    return render_template("stats_grade.html", db=pupils, grade="9А")
+    return render_template("stats_grade.html", db=pupils, grade="9А", title="9А статистика")
 
 
 @app.route("/stats9b")
@@ -1030,7 +1030,7 @@ def stats9a():
 def stats9b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "9Б").all()
-    return render_template("stats_grade.html", db=pupils, grade="9Б")
+    return render_template("stats_grade.html", db=pupils, grade="9Б", title="9Б статистика")
 
 
 @app.route("/stats9c")
@@ -1038,7 +1038,7 @@ def stats9b():
 def stats9c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "9В").all()
-    return render_template("stats_grade.html", db=pupils, grade="9В")
+    return render_template("stats_grade.html", db=pupils, grade="9В", title="9В статистика")
 
 
 @app.route("/stats10a")
@@ -1046,7 +1046,7 @@ def stats9c():
 def stats10a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "10А").all()
-    return render_template("stats_grade.html", db=pupils, grade="10А")
+    return render_template("stats_grade.html", db=pupils, grade="10А", title="10А статистика")
 
 
 @app.route("/stats10b")
@@ -1054,7 +1054,7 @@ def stats10a():
 def stats10b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "10Б").all()
-    return render_template("stats_grade.html", db=pupils, grade="10Б")
+    return render_template("stats_grade.html", db=pupils, grade="10Б", title="10Б статистика")
 
 
 @app.route("/stats10c")
@@ -1062,7 +1062,7 @@ def stats10b():
 def stats10c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "10В").all()
-    return render_template("stats_grade.html", db=pupils, grade="10В")
+    return render_template("stats_grade.html", db=pupils, grade="10В", title="10В статистика")
 
 
 @app.route("/stats11a")
@@ -1070,7 +1070,7 @@ def stats10c():
 def stats11a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "11А").all()
-    return render_template("stats_grade.html", db=pupils, grade="11А")
+    return render_template("stats_grade.html", db=pupils, grade="11А", title="11А статистика")
 
 
 @app.route("/stats11b")
@@ -1078,7 +1078,7 @@ def stats11a():
 def stats11b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "11Б").all()
-    return render_template("stats_grade.html", db=pupils, grade="11Б")
+    return render_template("stats_grade.html", db=pupils, grade="11Б", title="11Б статистика")
 
 
 @app.route("/stats11c")
@@ -1086,7 +1086,7 @@ def stats11b():
 def stats11c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "11В").all()
-    return render_template("stats_grade.html", db=pupils, grade="11В")
+    return render_template("stats_grade.html", db=pupils, grade="11В", title="11В статистика")
 
 
 @app.route("/history")
@@ -1139,7 +1139,11 @@ def reqister():
     return render_template('register.html', title='Регистрация', form=form)
 
 
-
+@app.route("/kilo_delete/<int:id>", methods=["GET", "POST"])
+@login_required
+def kilo_delete(id):
+    db_sess = db_session.create_session()
+    kilo = db_sess.query(Kilograms).filter(Kilograms.id == id).first()
 
 
 @app.route("/users")

@@ -14,6 +14,9 @@
         <b>Ученик</b> - {{item.pupil.name}}, {{item.pupil.grade}}</br>
         <b>Дата</b> - {{item.created_date}}
     </div>
+    {% if current_user.is_admin %}
+    <a class="btn btn-danger" href="/kilo_delete/{{item.id}}">Удалить</a>
+    {% endif %}
 </div>
 {% endfor %}
 {% endif %}
