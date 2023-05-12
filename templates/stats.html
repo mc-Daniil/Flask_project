@@ -3,8 +3,8 @@
 {% block content %}
 {% if current_user.is_authenticated %}
 <h1>Статистика по классам</h1>
-<a class="btn btn-info" href="/stats1a">1А</a></br>
-<a class="btn btn-info" href="/stats2a">2А</a></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats1a">1А</a><h4>{{sum_1a}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats2a">2А</a><h4>{{sum_2a}} кг</h4></div></br>
 <a class="btn btn-info" href="/stats2b">2Б</a></br>
 <a class="btn btn-info" href="/stats3a">3А</a></br>
 <a class="btn btn-info" href="/stats3b">3Б</a></br>

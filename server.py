@@ -36,17 +36,30 @@ def login():
 
 @app.route("/stats")
 def stats():
-    return render_template("stats.html", title="Статитстика")
+    db_sess = db_session.create_session()
+
+    _1a = db_sess.query(Pupils).filter(Pupils.grade == "1А").all()
+    sum_1a = 0
+    for i in _1a:
+        sum_1a += i.value
+
+    _2a = db_sess.query(Pupils).filter(Pupils.grade == "2А").all()
+    sum_2a = 0
+    for i in _2a:
+        sum_2a += i.value
+
+    return render_template("stats.html", title="Статитстика", sum_1a=sum_1a, sum_2a=sum_2a)
 
 
 @app.route("/post1a", methods=["GET", "POST"])
 @login_required
 def post1a():
+    grade = "1А"
     form = forms.pupil.Post1A()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -63,17 +76,18 @@ def post1a():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="1А", form=form, grade="1А")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post2a", methods=["GET", "POST"])
 @login_required
 def post2a():
+    grade = "2А"
     form = forms.pupil.Post2A()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -90,17 +104,18 @@ def post2a():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="2А", form=form, grade="2А")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post2b", methods=["GET", "POST"])
 @login_required
 def post2b():
+    grade = "2Б"
     form = forms.pupil.Post2B()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -117,17 +132,18 @@ def post2b():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="2Б", form=form, grade="2Б")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post3a", methods=["GET", "POST"])
 @login_required
 def post3a():
+    grade = "3А"
     form = forms.pupil.Post3A()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -144,17 +160,18 @@ def post3a():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="3А", form=form, grade="3А")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post3b", methods=["GET", "POST"])
 @login_required
 def post3b():
+    grade = "3Б"
     form = forms.pupil.Post3B()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -171,17 +188,18 @@ def post3b():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="3Б", form=form, grade="3Б")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post3c", methods=["GET", "POST"])
 @login_required
 def post3c():
+    grade = "3В"
     form = forms.pupil.Post3C()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -198,17 +216,18 @@ def post3c():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="3В", form=form, grade="3В")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post4a", methods=["GET", "POST"])
 @login_required
 def post4a():
+    grade = "4А"
     form = forms.pupil.Post4A()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -225,17 +244,18 @@ def post4a():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="4А", form=form, grade="4А")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post4b", methods=["GET", "POST"])
 @login_required
 def post4b():
+    grade = "4Б"
     form = forms.pupil.Post4B()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -252,17 +272,18 @@ def post4b():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="4Б", form=form, grade="4Б")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post4c", methods=["GET", "POST"])
 @login_required
 def post4c():
+    grade = "4В"
     form = forms.pupil.Post4C()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -279,17 +300,18 @@ def post4c():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="4В", form=form, grade="4В")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post5a", methods=["GET", "POST"])
 @login_required
 def post5a():
+    grade = "5А"
     form = forms.pupil.Post5A()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -306,17 +328,18 @@ def post5a():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="5А", form=form, grade="5А")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post5b", methods=["GET", "POST"])
 @login_required
 def post5b():
+    grade = "5Б"
     form = forms.pupil.Post5B()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -333,17 +356,18 @@ def post5b():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="5Б", form=form, grade="5Б")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post5c", methods=["GET", "POST"])
 @login_required
 def post5c():
+    grade = "5В"
     form = forms.pupil.Post5C()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -360,17 +384,18 @@ def post5c():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="5В", form=form, grade="5В")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post6a", methods=["GET", "POST"])
 @login_required
 def post6a():
+    grade = "6А"
     form = forms.pupil.Post3A()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -387,17 +412,18 @@ def post6a():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="6А", form=form, grade="6А")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post6b", methods=["GET", "POST"])
 @login_required
 def post6b():
+    grade = "6Б"
     form = forms.pupil.Post6B()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -414,17 +440,18 @@ def post6b():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="6Б", form=form, grade="6Б")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post6c", methods=["GET", "POST"])
 @login_required
 def post6c():
+    grade = "6В"
     form = forms.pupil.Post3C()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -441,17 +468,18 @@ def post6c():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="6В", form=form, grade="6В")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post7a", methods=["GET", "POST"])
 @login_required
 def post7a():
+    grade = "7А"
     form = forms.pupil.Post7A()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -468,17 +496,18 @@ def post7a():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="7А", form=form, grade="7А")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post7b", methods=["GET", "POST"])
 @login_required
 def post7b():
+    grade = "7Б"
     form = forms.pupil.Post7B()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -495,17 +524,18 @@ def post7b():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="7Б", form=form, grade="7Б")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post7c", methods=["GET", "POST"])
 @login_required
 def post7c():
+    grade = "7В"
     form = forms.pupil.Post3C()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -522,17 +552,18 @@ def post7c():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="7В", form=form, grade="7В")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post8a", methods=["GET", "POST"])
 @login_required
 def post8a():
+    grade = "8А"
     form = forms.pupil.Post8A()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -549,17 +580,18 @@ def post8a():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="8А", form=form, grade="8А")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post8b", methods=["GET", "POST"])
 @login_required
 def post8b():
+    grade = "8Б"
     form = forms.pupil.Post8B()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -576,17 +608,18 @@ def post8b():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="8Б", form=form, grade="8Б")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post8c", methods=["GET", "POST"])
 @login_required
 def post8c():
+    grade = "8В"
     form = forms.pupil.Post8C()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -603,17 +636,18 @@ def post8c():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="8В", form=form, grade="8В")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post9a", methods=["GET", "POST"])
 @login_required
 def post9a():
+    grade = "9А"
     form = forms.pupil.Post9A()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -630,17 +664,18 @@ def post9a():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="9А", form=form, grade="9А")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post9b", methods=["GET", "POST"])
 @login_required
 def post9b():
+    grade = "9Б"
     form = forms.pupil.Post9B()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -657,17 +692,18 @@ def post9b():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="9Б", form=form, grade="9Б")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post9c", methods=["GET", "POST"])
 @login_required
 def post9c():
+    grade = "9В"
     form = forms.pupil.Post9C()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -684,17 +720,18 @@ def post9c():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="9В", form=form, grade="9В")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post10a", methods=["GET", "POST"])
 @login_required
 def post10a():
+    grade = "10А"
     form = forms.pupil.Post10A()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -711,17 +748,18 @@ def post10a():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="10А", form=form, grade="10А")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post10b", methods=["GET", "POST"])
 @login_required
 def post10b():
+    grade = "10Б"
     form = forms.pupil.Post10B()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -738,17 +776,18 @@ def post10b():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="10Б", form=form, grade="10Б")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post10c", methods=["GET", "POST"])
 @login_required
 def post10c():
+    grade = "10В"
     form = forms.pupil.Post10C()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -765,17 +804,18 @@ def post10c():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="10В", form=form, grade="10В")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post11a", methods=["GET", "POST"])
 @login_required
 def post11a():
+    grade = "11А"
     form = forms.pupil.Post11A()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -792,17 +832,18 @@ def post11a():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="11А", form=form, grade="11А")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post11b", methods=["GET", "POST"])
 @login_required
 def post11b():
+    grade = "11Б"
     form = forms.pupil.Post11B()
     if form.validate_on_submit() and current_user.is_authenticated:
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -819,17 +860,19 @@ def post11b():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="11Б", form=form, grade="11Б")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/post11c", methods=["GET", "POST"])
 @login_required
 def post11c():
     form = forms.pupil.Post11C()
+    grade = "11В"
     if form.validate_on_submit() and current_user.is_authenticated:
+
         db_sess = db_session.create_session()
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
@@ -846,7 +889,7 @@ def post11c():
         db_sess.commit()
         return redirect("/")
 
-    return render_template("post_form.html", title="11В", form=form, grade="11В")
+    return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
 @app.route("/stats1a")
@@ -1144,6 +1187,26 @@ def reqister():
 def kilo_delete(id):
     db_sess = db_session.create_session()
     kilo = db_sess.query(Kilograms).filter(Kilograms.id == id).first()
+    if kilo:
+        user_id = kilo.user_id
+        pupil_id = kilo.id
+        value = kilo.value
+
+        user = db_sess.query(User).filter(User.id == user_id).first()
+        pupil = db_sess.query(Pupils).filter(Pupils.id == pupil_id).first()
+
+        user.got_pupils -= 1
+        user.got -= value
+
+        pupil.value -= value
+
+        db_sess.delete(kilo)
+        db_sess.commit()
+
+    else:
+        abort(404)
+    return redirect("/history")
+
 
 
 @app.route("/users")
@@ -1164,7 +1227,6 @@ def main():
     #         pupil.name = i.strip()
     #         pupil.grade = j
     #         db_sess.add(pupil)
-    #
     #
     #     db_sess.commit()
 
