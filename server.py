@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, abort
+from flask import Flask, render_template, redirect, abort, send_from_directory
 from data import db_session
 from data.kilograms import Kilograms
 from forms.user import RegisterForm, LoginForm
@@ -6,6 +6,8 @@ from data.users import User
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from data.Pupils import Pupils
 import forms.pupil
+import xlsxwriter
+import tempfile
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "Машина дикая"
@@ -36,6 +38,9 @@ def login():
 
 @app.route("/stats")
 def stats():
+    global sum_1a, sum_2a, sum_2b, sum_3a, sum_3b, sum_3c, sum_4a, sum_4b, sum_4c, sum_5a, sum_5b, sum_5c, \
+        sum_6a, sum_6b, sum_6c, sum_7a, sum_7b, sum_7c, sum_8a, sum_8b, sum_8c, sum_9a, sum_9b, sum_9c, \
+        sum_10a, sum_10b, sum_10c, sum_11a, sum_11b, sum_11c
     db_sess = db_session.create_session()
 
     _1a = db_sess.query(Pupils).filter(Pupils.grade == "1А").all()
@@ -209,6 +214,7 @@ def post1a():
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         kilo = Kilograms()
 
+        print(form.name.data, form.value.data)
         pupil.value += form.value.data
 
         user.got_pupils += 1
@@ -1331,12 +1337,11 @@ def reqister():
 @app.route("/kilo_delete/<int:id>", methods=["GET", "POST"])
 @login_required
 def kilo_delete(id):
-    #TODO delete kilo
     db_sess = db_session.create_session()
     kilo = db_sess.query(Kilograms).filter(Kilograms.id == id).first()
     if kilo:
         user_id = kilo.user_id
-        pupil_id = kilo.id
+        pupil_id = kilo.pupil_id
         value = kilo.value
 
         user = db_sess.query(User).filter(User.id == user_id).first()
@@ -1354,7 +1359,22 @@ def kilo_delete(id):
         abort(404)
     return redirect("/history")
 
-#TODO Delete user
+
+@app.route("/user_delete/<int:id>", methods=["GET", "POST"])
+@login_required
+def user_delete(id):
+    if current_user.is_admin:
+        db_sess = db_session.create_session()
+        user = db_sess.query(User).filter(User.id == id).first()
+        if user:
+            if user.id != current_user.id and user.got == 0:
+                db_sess.delete(user)
+                db_sess.commit()
+        else:
+            abort(404)
+
+    return redirect("/users")
+
 
 @app.route("/users")
 def users():
@@ -1363,19 +1383,57 @@ def users():
     return render_template("users.html", user=user)
 
 
+@login_required
+@app.route("/download_excel")
+def download_excel():
+    global sum_1a, sum_2a, sum_2b, sum_3a, sum_3b, sum_3c, sum_4a, sum_4b, sum_4c, sum_5a, sum_5b, sum_5c, \
+        sum_6a, sum_6b, sum_6c, sum_7a, sum_7b, sum_7c, sum_8a, sum_8b, sum_8c, sum_9a, sum_9b, sum_9c, \
+        sum_10a, sum_10b, sum_10c, sum_11a, sum_11b, sum_11c
+
+    if current_user.is_admin:
+        db_sess = db_session.create_session()
+        tf = tempfile.NamedTemporaryFile()
+        filename = tf.name.split("\\")[-1]
+        workbook = xlsxwriter.Workbook(f'{filename}.xlsx')
+        grades = ["1А", "2А", "2Б", "3А", "3Б", "3В", "4А", "4Б", "4В", "5А", "5Б", "5В", "6А", "6Б", "6В",
+                  "7А", "7Б", "7В", "8А", "8Б", "8В", "9А", "9Б", "9В", "10А", "10Б", "10В", "11А", "11Б", "11В"]
+
+        sums = [sum_1a, sum_2a, sum_2b, sum_3a, sum_3b, sum_3c, sum_4a, sum_4b, sum_4c, sum_5a, sum_5b, sum_5c, \
+        sum_6a, sum_6b, sum_6c, sum_7a, sum_7b, sum_7c, sum_8a, sum_8b, sum_8c, sum_9a, sum_9b, sum_9c, \
+        sum_10a, sum_10b, sum_10c, sum_11a, sum_11b, sum_11c]
+
+        worksheet = workbook.add_worksheet("Все классы")
+        for i in range(len(grades)):
+            worksheet.write(i, 0, grades[i])
+            worksheet.write(i, 1, sums[i])
+
+        for i in grades:
+            worksheet = workbook.add_worksheet(f"{i}")
+            pupils = db_sess.query(Pupils).filter(Pupils.grade == i).all()
+            for num, pup in list(enumerate(pupils)):
+                worksheet.write(num, 0, pup.name)
+                worksheet.write(num, 1, pup.value)
+
+        workbook.close()
+
+        return send_from_directory("E:/Code/Python/Flask_project/", f"{filename}.xlsx")
+    else:
+        return abort(404)
+
+
 def main():
     db_session.global_init("db/base.db")
 
-    db_sess = db_session.create_session()
-    for j in ["1А", "2А", "2Б", "3А", "3Б", "3В", "4А", "4Б", "4В", "5А", "5Б", "5В", "6А", "6Б", "6В",
-              "7А", "7Б", "7В", "8А", "8Б", "8В", "9А", "9Б", "9В", "10А", "10Б", "10В", "11А", "11Б", "11В"]:
-        for i in open(f"E:/Code/Python/Flask_project/db/Grades/{j}.txt", encoding="utf-8").readlines():
-            pupil = Pupils()
-            pupil.name = i.strip()
-            pupil.grade = j
-            db_sess.add(pupil)
-
-        db_sess.commit()
+    # db_sess = db_session.create_session()
+    # for j in ["1А", "2А", "2Б", "3А", "3Б", "3В", "4А", "4Б", "4В", "5А", "5Б", "5В", "6А", "6Б", "6В",
+    #           "7А", "7Б", "7В", "8А", "8Б", "8В", "9А", "9Б", "9В", "10А", "10Б", "10В", "11А", "11Б", "11В"]:
+    #     for i in open(f"E:/Code/Python/Flask_project/db/Grades/{j}.txt", encoding="utf-8").readlines():
+    #         pupil = Pupils()
+    #         pupil.name = i.strip()
+    #         pupil.grade = j
+    #         db_sess.add(pupil)
+    #
+    #     db_sess.commit()
 
     app.run()
 

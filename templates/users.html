@@ -21,7 +21,8 @@
             <b>Обслужено посетителей:</b> {{item.got_pupils}}
             </br>
             <b>Собрано килограммов:</b> {{item.got}}
-            {% if current_user.is_admin and not item.is_admin%}</br>
+            {% if current_user.is_admin%}</br>
+            <a href="/user_delete/{{item.id}}" class="btn btn-danger">Удалить пользователя</a>
             {% endif %}
             </br>
         </div>
