@@ -48,7 +48,153 @@ def stats():
     for i in _2a:
         sum_2a += i.value
 
-    return render_template("stats.html", title="Статитстика", sum_1a=sum_1a, sum_2a=sum_2a)
+    _2b = db_sess.query(Pupils).filter(Pupils.grade == "2Б").all()
+    sum_2b = 0
+    for i in _2b:
+        sum_2b += i.value
+
+    _3a = db_sess.query(Pupils).filter(Pupils.grade == "3А").all()
+    sum_3a = 0
+    for i in _3a:
+        sum_3a += i.value
+
+    _3b = db_sess.query(Pupils).filter(Pupils.grade == "3Б").all()
+    sum_3b = 0
+    for i in _3b:
+        sum_3b += i.value
+
+    _3c = db_sess.query(Pupils).filter(Pupils.grade == "3В").all()
+    sum_3c = 0
+    for i in _3c:
+        sum_3c += i.value
+
+    _4a = db_sess.query(Pupils).filter(Pupils.grade == "4А").all()
+    sum_4a = 0
+    for i in _4a:
+        sum_4a += i.value
+
+    _4b = db_sess.query(Pupils).filter(Pupils.grade == "4Б").all()
+    sum_4b = 0
+    for i in _4b:
+        sum_4b += i.value
+
+    _4c = db_sess.query(Pupils).filter(Pupils.grade == "4В").all()
+    sum_4c = 0
+    for i in _4c:
+        sum_4c += i.value
+
+    _5a = db_sess.query(Pupils).filter(Pupils.grade == "5А").all()
+    sum_5a = 0
+    for i in _5a:
+        sum_5a += i.value
+
+    _5b = db_sess.query(Pupils).filter(Pupils.grade == "5Б").all()
+    sum_5b = 0
+    for i in _5b:
+        sum_5b += i.value
+
+    _5c = db_sess.query(Pupils).filter(Pupils.grade == "5В").all()
+    sum_5c = 0
+    for i in _5c:
+        sum_5c += i.value
+
+    _6a = db_sess.query(Pupils).filter(Pupils.grade == "6А").all()
+    sum_6a = 0
+    for i in _6a:
+        sum_6a += i.value
+
+    _6b = db_sess.query(Pupils).filter(Pupils.grade == "6Б").all()
+    sum_6b = 0
+    for i in _6b:
+        sum_6b += i.value
+
+    _6c = db_sess.query(Pupils).filter(Pupils.grade == "6В").all()
+    sum_6c = 0
+    for i in _6c:
+        sum_6c += i.value
+
+    _7a = db_sess.query(Pupils).filter(Pupils.grade == "7А").all()
+    sum_7a = 0
+    for i in _7a:
+        sum_7a += i.value
+
+    _7b = db_sess.query(Pupils).filter(Pupils.grade == "7Б").all()
+    sum_7b = 0
+    for i in _7b:
+        sum_7b += i.value
+
+    _7c = db_sess.query(Pupils).filter(Pupils.grade == "7В").all()
+    sum_7c = 0
+    for i in _7c:
+        sum_7c += i.value
+
+    _8a = db_sess.query(Pupils).filter(Pupils.grade == "8А").all()
+    sum_8a = 0
+    for i in _8a:
+        sum_8a += i.value
+
+    _8b = db_sess.query(Pupils).filter(Pupils.grade == "8Б").all()
+    sum_8b = 0
+    for i in _8b:
+        sum_8b += i.value
+
+    _8c = db_sess.query(Pupils).filter(Pupils.grade == "8В").all()
+    sum_8c = 0
+    for i in _8c:
+        sum_8c += i.value
+
+    _9a = db_sess.query(Pupils).filter(Pupils.grade == "9А").all()
+    sum_9a = 0
+    for i in _9a:
+        sum_9a += i.value
+
+    _9b = db_sess.query(Pupils).filter(Pupils.grade == "9Б").all()
+    sum_9b = 0
+    for i in _9b:
+        sum_9b += i.value
+
+    _9c = db_sess.query(Pupils).filter(Pupils.grade == "9В").all()
+    sum_9c = 0
+    for i in _9c:
+        sum_9c += i.value
+
+    _10a = db_sess.query(Pupils).filter(Pupils.grade == "10А").all()
+    sum_10a = 0
+    for i in _10a:
+        sum_10a += i.value
+
+    _10b = db_sess.query(Pupils).filter(Pupils.grade == "10Б").all()
+    sum_10b = 0
+    for i in _10b:
+        sum_10b += i.value
+
+    _10c = db_sess.query(Pupils).filter(Pupils.grade == "10В").all()
+    sum_10c = 0
+    for i in _10c:
+        sum_10c += i.value
+
+    _11a = db_sess.query(Pupils).filter(Pupils.grade == "11А").all()
+    sum_11a = 0
+    for i in _11a:
+        sum_11a += i.value
+
+    _11b = db_sess.query(Pupils).filter(Pupils.grade == "11Б").all()
+    sum_11b = 0
+    for i in _11b:
+        sum_11b += i.value
+
+    _11c = db_sess.query(Pupils).filter(Pupils.grade == "11В").all()
+    sum_11c = 0
+    for i in _11c:
+        sum_11c += i.value
+
+    return render_template("stats.html", title="Статитстика", sum_1a=sum_1a, sum_2a=sum_2a, sum_2b=sum_2b,
+                           sum_3a=sum_3a, sum_3b=sum_3b, sum_3c=sum_3c, sum_4a=sum_4a, sum_4b=sum_4b, sum_4c=sum_4c,
+                           sum_5a=sum_5a, sum_5b=sum_5b, sum_5c=sum_5c, sum_6a=sum_6a, sum_6b=sum_6b, sum_6c=sum_6c,
+                           sum_7a=sum_7a, sum_7b=sum_7b, sum_7c=sum_7c, sum_8a=sum_8a, sum_8b=sum_8b, sum_8c=sum_8c,
+                           sum_9a=sum_9a, sum_9b=sum_9b, sum_9c=sum_9c,
+                           sum_10a=sum_10a, sum_10b=sum_10b, sum_10c=sum_10c,
+                           sum_11a=sum_11a, sum_11b=sum_11b, sum_11c=sum_11c)
 
 
 @app.route("/post1a", methods=["GET", "POST"])
@@ -1185,6 +1331,7 @@ def reqister():
 @app.route("/kilo_delete/<int:id>", methods=["GET", "POST"])
 @login_required
 def kilo_delete(id):
+    #TODO delete kilo
     db_sess = db_session.create_session()
     kilo = db_sess.query(Kilograms).filter(Kilograms.id == id).first()
     if kilo:
@@ -1207,7 +1354,7 @@ def kilo_delete(id):
         abort(404)
     return redirect("/history")
 
-
+#TODO Delete user
 
 @app.route("/users")
 def users():
@@ -1219,16 +1366,16 @@ def users():
 def main():
     db_session.global_init("db/base.db")
 
-    # db_sess = db_session.create_session()
-    # for j in ["1А", "2А", "2Б", "3А", "3Б", "3В", "4А", "4Б", "4В", "5А", "5Б", "5В", "6А", "6Б", "6В",
-    #           "7А", "7Б", "7В", "8А", "8Б", "8В", "9А", "9Б", "9В", "10А", "10Б", "10В", "11А", "11Б", "11В"]:
-    #     for i in open(f"E:/Code/Python/Flask_project/db/Grades/{j}.txt", encoding="utf-8").readlines():
-    #         pupil = Pupils()
-    #         pupil.name = i.strip()
-    #         pupil.grade = j
-    #         db_sess.add(pupil)
-    #
-    #     db_sess.commit()
+    db_sess = db_session.create_session()
+    for j in ["1А", "2А", "2Б", "3А", "3Б", "3В", "4А", "4Б", "4В", "5А", "5Б", "5В", "6А", "6Б", "6В",
+              "7А", "7Б", "7В", "8А", "8Б", "8В", "9А", "9Б", "9В", "10А", "10Б", "10В", "11А", "11Б", "11В"]:
+        for i in open(f"E:/Code/Python/Flask_project/db/Grades/{j}.txt", encoding="utf-8").readlines():
+            pupil = Pupils()
+            pupil.name = i.strip()
+            pupil.grade = j
+            db_sess.add(pupil)
+
+        db_sess.commit()
 
     app.run()
 

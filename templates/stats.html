@@ -1,37 +1,37 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% if current_user.is_authenticated %}
+{% if current_user.is_admin %}
 <h1>Статистика по классам</h1>
 <div class="col-md6 border rounded"><a class="btn btn-info" href="/stats1a">1А</a><h4>{{sum_1a}} кг</h4></div></br>
 <div class="col-md6 border rounded"><a class="btn btn-info" href="/stats2a">2А</a><h4>{{sum_2a}} кг</h4></div></br>
-<a class="btn btn-info" href="/stats2b">2Б</a></br>
-<a class="btn btn-info" href="/stats3a">3А</a></br>
-<a class="btn btn-info" href="/stats3b">3Б</a></br>
-<a class="btn btn-info" href="/stats3c">3В</a></br>
-<a class="btn btn-info" href="/stats4a">4А</a></br>
-<a class="btn btn-info" href="/stats4b">4Б</a></br>
-<a class="btn btn-info" href="/stats4c">4В</a></br>
-<a class="btn btn-info" href="/stats5a">5А</a></br>
-<a class="btn btn-info" href="/stats5b">5Б</a></br>
-<a class="btn btn-info" href="/stats5c">5В</a></br>
-<a class="btn btn-info" href="/stats6a">6А</a></br>
-<a class="btn btn-info" href="/stats6b">6Б</a></br>
-<a class="btn btn-info" href="/stats6c">6В</a></br>
-<a class="btn btn-info" href="/stats7a">7А</a></br>
-<a class="btn btn-info" href="/stats7b">7Б</a></br>
-<a class="btn btn-info" href="/stats7c">7В</a></br>
-<a class="btn btn-info" href="/stats8a">8А</a></br>
-<a class="btn btn-info" href="/stats8b">8Б</a></br>
-<a class="btn btn-info" href="/stats8c">8В</a></br>
-<a class="btn btn-info" href="/stats9a">9А</a></br>
-<a class="btn btn-info" href="/stats9b">9Б</a></br>
-<a class="btn btn-info" href="/stats9c">9В</a></br>
-<a class="btn btn-info" href="/stats10a">10А</a></br>
-<a class="btn btn-info" href="/stats10b">10Б</a></br>
-<a class="btn btn-info" href="/stats10c">10В</a></br>
-<a class="btn btn-info" href="/stats11a">11А</a></br>
-<a class="btn btn-info" href="/stats11b">11Б</a></br>
-<a class="btn btn-info" href="/stats11c">11В</a></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats2b">2Б</a><h4>{{sum_2b}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats3a">3А</a><h4>{{sum_3a}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats3b">3Б</a><h4>{{sum_3b}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats3c">3В</a><h4>{{sum_3c}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats4a">4А</a><h4>{{sum_4a}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats4b">4Б</a><h4>{{sum_4b}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats4c">4В</a><h4>{{sum_4c}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats5a">5А</a><h4>{{sum_5a}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats5b">5Б</a><h4>{{sum_5b}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats5c">5В</a><h4>{{sum_5c}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats6a">6А</a><h4>{{sum_6a}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats6b">6Б</a><h4>{{sum_6b}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats6c">6В</a><h4>{{sum_6c}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats7a">7А</a><h4>{{sum_7a}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats7b">7Б</a><h4>{{sum_7b}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats7c">7В</a><h4>{{sum_7c}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats8a">8А</a><h4>{{sum_8a}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats8b">8Б</a><h4>{{sum_8b}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats8c">8В</a><h4>{{sum_8c}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats9a">9А</a><h4>{{sum_9a}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats9b">9Б</a><h4>{{sum_9b}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats9c">9В</a><h4>{{sum_9c}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats10a">10А</a><h4>{{sum_10a}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats10b">10Б</a><h4>{{sum_10b}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats10c">10В</a><h4>{{sum_10c}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats11a">11А</a><h4>{{sum_11a}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats11b">11Б</a><h4>{{sum_11b}} кг</h4></div></br>
+<div class="col-md6 border rounded"><a class="btn btn-info" href="/stats11c">11В</a><h4>{{sum_11c}} кг</h4></div></br>
 {% endif %}
 {% endblock %}
