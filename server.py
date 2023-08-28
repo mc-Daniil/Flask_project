@@ -9,44 +9,57 @@ import forms.pupil
 import xlsxwriter
 import tempfile
 
-app = Flask(__name__)
+app = Flask(__name__) # Само приложение
 app.config['SECRET_KEY'] = "Машина дикая"
-login_manager = LoginManager()
-login_manager.init_app(app)
+login_manager = LoginManager() # Инструмент для входа и выхода пользователей
+login_manager.init_app(app) # Применение инструмента для нашего приложения
 
 
-@login_manager.user_loader
+@login_manager.user_loader # Декоратор для авторизации пользователей
 def load_user(user_id):
     db_sess = db_session.create_session()
-    return db_sess.query(User).get(user_id)
+    user_id = db_sess.query(User).get(user_id)
+    db_sess.close()
+    return user_id
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST']) # адрес страницы для входа. Использует методы отправки и принятия данных
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        db_sess = db_session.create_session()
-        user = db_sess.query(User).filter(User.email == form.email.data).first()
-        if user and user.check_password(form.password.data):
-            login_user(user, remember=form.remember_me.data)
-            return redirect("/")
+    """
+    Функция со страницей для авторизации существующих пользователей
+    """
+    form = LoginForm() # Форма авторизации
+    if form.validate_on_submit(): # Если нажата кнопка "Войти"
+        db_sess = db_session.create_session() # Подключение к БД
+        user = db_sess.query(User).filter(User.email == form.email.data).first() # Достать пользователя по почте
+        if user and user.check_password(form.password.data): # Если пользователь существует и пароль верный
+            login_user(user, remember=form.remember_me.data) # Войти
+            db_sess.close() # Завершить сессию
+            return redirect("/") # Направить на главную страницу
         return render_template('login.html',
                                message="Неправильный логин или пароль",
-                               form=form)
-    return render_template('login.html', title='Авторизация', form=form)
+                               form=form) # Иначе открыть эту же страницу с сообщением об ошибке
+    return render_template('login.html', title='Авторизация', form=form) # Иначе просто открыть страницу с формой авторизации
 
 
-@app.route("/stats")
+@app.route("/stats") # Адрес страницы со статистикой по классам
 def stats():
+    """
+    Функция считает, сколько кг собрал каждый класс и открывает страницу с этой информацией
+    """
+    # Переменные для подсчёта кг для каждого класса
     global sum_1a, sum_2a, sum_2b, sum_3a, sum_3b, sum_3c, sum_4a, sum_4b, sum_4c, sum_5a, sum_5b, sum_5c, \
         sum_6a, sum_6b, sum_6c, sum_7a, sum_7b, sum_7c, sum_8a, sum_8b, sum_8c, sum_9a, sum_9b, sum_9c, \
         sum_10a, sum_10b, sum_10c, sum_11a, sum_11b, sum_11c
-    db_sess = db_session.create_session()
 
-    _1a = db_sess.query(Pupils).filter(Pupils.grade == "1А").all()
+    db_sess = db_session.create_session() # Создание сессии
+
+    _1a = db_sess.query(Pupils).filter(Pupils.grade == "1А").all() # Получаем всех учеников из 1А
     sum_1a = 0
-    for i in _1a:
-        sum_1a += i.value
+    for i in _1a: # Идём по всем ученикам 1А
+        sum_1a += i.value # Прибавляем кг конкретного ученика
+
+    # Аналогично с другими классами
 
     _2a = db_sess.query(Pupils).filter(Pupils.grade == "2А").all()
     sum_2a = 0
@@ -193,6 +206,8 @@ def stats():
     for i in _11c:
         sum_11c += i.value
 
+    db_sess.close() # Заканчиваем сессию с БД
+    # Показываем страницу с кол-ом кг для каждого класса
     return render_template("stats.html", title="Статитстика", sum_1a=sum_1a, sum_2a=sum_2a, sum_2b=sum_2b,
                            sum_3a=sum_3a, sum_3b=sum_3b, sum_3c=sum_3c, sum_4a=sum_4a, sum_4b=sum_4b, sum_4c=sum_4c,
                            sum_5a=sum_5a, sum_5b=sum_5b, sum_5c=sum_5c, sum_6a=sum_6a, sum_6b=sum_6b, sum_6c=sum_6c,
@@ -202,38 +217,47 @@ def stats():
                            sum_11a=sum_11a, sum_11b=sum_11b, sum_11c=sum_11c)
 
 
-@app.route("/post1a", methods=["GET", "POST"])
+@app.route("/post1a", methods=["GET", "POST"]) # Адрес страницы для отправки данных по 1А классу
 @login_required
 def post1a():
+    """
+    Страница с формой отправки данных по 1А классу
+    """
     grade = "1А"
-    form = forms.pupil.Post1A()
-    if form.validate_on_submit() and current_user.is_authenticated:
-        db_sess = db_session.create_session()
+    form = forms.pupil.Post1A() # Форма для отправки данных по 1А классу
+    if form.validate_on_submit() and current_user.is_authenticated: # Если нажата кнопка "Отправить" и при этом пользователь аутентифицирован
+        db_sess = db_session.create_session() # Созадть сессию с БД
 
-        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first()
-        user = db_sess.query(User).filter(User.id == current_user.id).first()
-        kilo = Kilograms()
+        pupil = db_sess.query(Pupils).filter(Pupils.name == form.name.data and Pupils.grade == grade).first() # Извлечь из БД ученика по введённому имени и классу
+        user = db_sess.query(User).filter(User.id == current_user.id).first() # Извлечь из БД текущего пользователя
+        kilo = Kilograms() # Класс для отправки данных о кол-ве сданных килограммов. В нём кол-во кг, имя пользователя и ученика
 
         print(form.name.data, form.value.data)
-        pupil.value += form.value.data
+        pupil.value += form.value.data # Увеличить сумму сданных учеником килограммов
 
-        user.got_pupils += 1
-        user.got += form.value.data
+        user.got_pupils += 1 # Увеличить кол-во обслуженных текущим пользователем посетителей
+        user.got += form.value.data # Увеличить суммарное кол-во колиграммов, собранных текущим пользователем
 
-        kilo.value = form.value.data
-        kilo.user_id = current_user.id
-        kilo.pupil_id = pupil.id
+        kilo.value = form.value.data # Кол-во кг
+        kilo.user_id = current_user.id # ИД текущего пользователя
+        kilo.pupil_id = pupil.id # ИД ученика
 
-        db_sess.add(kilo)
-        db_sess.commit()
-        return redirect("/")
+        db_sess.add(kilo) # Добавить в БД в таблицу с историей текущую информацию
+        db_sess.commit() # Сохранить изменения
+        db_sess.close() # Завершить сессию
+        return redirect("/") # Открыть главную страницу
 
-    return render_template("post_form.html", title=grade, form=form, grade=grade)
+    return render_template("post_form.html", title=grade, form=form, grade=grade) # Открыть страницу с формой отправки данных по 1А классу
+
+# Аналогично с другими классами
 
 
 @app.route("/post2a", methods=["GET", "POST"])
 @login_required
 def post2a():
+    """
+    Страница с формой отправки данных по 2А классу
+    """
     grade = "2А"
     form = forms.pupil.Post2A()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -254,6 +278,7 @@ def post2a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -282,6 +307,7 @@ def post2b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -310,6 +336,7 @@ def post3a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -338,6 +365,7 @@ def post3b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -366,6 +394,7 @@ def post3c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -394,6 +423,7 @@ def post4a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -422,6 +452,7 @@ def post4b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -450,6 +481,7 @@ def post4c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -478,6 +510,7 @@ def post5a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -506,6 +539,7 @@ def post5b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -534,6 +568,7 @@ def post5c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -562,6 +597,7 @@ def post6a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -590,6 +626,7 @@ def post6b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -618,6 +655,7 @@ def post6c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -646,6 +684,7 @@ def post7a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -674,6 +713,7 @@ def post7b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -702,6 +742,7 @@ def post7c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -730,6 +771,7 @@ def post8a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -758,6 +800,7 @@ def post8b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -786,6 +829,7 @@ def post8c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -814,6 +858,7 @@ def post9a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -842,6 +887,7 @@ def post9b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -870,6 +916,7 @@ def post9c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -898,6 +945,7 @@ def post10a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -926,6 +974,7 @@ def post10b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -954,6 +1003,7 @@ def post10c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -982,6 +1032,7 @@ def post11a():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -1010,6 +1061,7 @@ def post11b():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -1039,6 +1091,7 @@ def post11c():
 
         db_sess.add(kilo)
         db_sess.commit()
+        db_sess.close()
         return redirect("/")
 
     return render_template("post_form.html", title=grade, form=form, grade=grade)
@@ -1049,6 +1102,7 @@ def post11c():
 def stats1a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "1А").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="1А", title="1А статистика")
 
 
@@ -1057,6 +1111,7 @@ def stats1a():
 def stats2a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "2А").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="2А", title="2А статистика")
 
 
@@ -1065,6 +1120,7 @@ def stats2a():
 def stats2b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "2Б").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="2Б", title="2Б статистика")
 
 
@@ -1073,6 +1129,7 @@ def stats2b():
 def stats3a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "3А").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="3А", title="3А статистика")
 
 
@@ -1081,6 +1138,7 @@ def stats3a():
 def stats3b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "3Б").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="3Б", title="3Б статистика")
 
 
@@ -1089,6 +1147,7 @@ def stats3b():
 def stats3c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "3В").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="3В", title="3В статистика")
 
 
@@ -1097,6 +1156,7 @@ def stats3c():
 def stats4a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "4А").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="4А", title="4А статистика")
 
 
@@ -1105,6 +1165,7 @@ def stats4a():
 def stats4b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "4Б").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="4Б", title="4Б статистика")
 
 
@@ -1113,6 +1174,7 @@ def stats4b():
 def stats4c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "4В").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="4В", title="4В статистика")
 
 
@@ -1121,6 +1183,7 @@ def stats4c():
 def stats5a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "5А").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="5А", title="5А статистика")
 
 
@@ -1129,6 +1192,7 @@ def stats5a():
 def stats5b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "5Б").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="5Б", title="5Б статистика")
 
 
@@ -1137,6 +1201,7 @@ def stats5b():
 def stats5c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "5В").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="5В", title="5В статистика")
 
 
@@ -1145,6 +1210,7 @@ def stats5c():
 def stats6a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "6А").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="6А", title="6А статистика")
 
 
@@ -1153,6 +1219,7 @@ def stats6a():
 def stats6b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "6Б").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="6Б", title="6Б статистика")
 
 
@@ -1161,6 +1228,7 @@ def stats6b():
 def stats6c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "6В").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="6В", title="6В статистика")
 
 
@@ -1169,6 +1237,7 @@ def stats6c():
 def stats7a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "7А").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="7А", title="7А статистика")
 
 
@@ -1177,6 +1246,7 @@ def stats7a():
 def stats7b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "7Б").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="7Б", title="7Б статистика")
 
 
@@ -1185,6 +1255,7 @@ def stats7b():
 def stats7c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "7В").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="7В", title="7В статистика")
 
 
@@ -1193,6 +1264,7 @@ def stats7c():
 def stats8a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "8А").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="8А", title="8А статистика")
 
 
@@ -1201,6 +1273,7 @@ def stats8a():
 def stats8b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "8Б").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="8Б", title="8Б статистика")
 
 
@@ -1209,6 +1282,7 @@ def stats8b():
 def stats8c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "8В").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="8В", title="8В статистика")
 
 
@@ -1217,6 +1291,7 @@ def stats8c():
 def stats9a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "9А").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="9А", title="9А статистика")
 
 
@@ -1225,6 +1300,7 @@ def stats9a():
 def stats9b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "9Б").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="9Б", title="9Б статистика")
 
 
@@ -1233,6 +1309,7 @@ def stats9b():
 def stats9c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "9В").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="9В", title="9В статистика")
 
 
@@ -1241,6 +1318,7 @@ def stats9c():
 def stats10a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "10А").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="10А", title="10А статистика")
 
 
@@ -1249,6 +1327,7 @@ def stats10a():
 def stats10b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "10Б").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="10Б", title="10Б статистика")
 
 
@@ -1257,6 +1336,7 @@ def stats10b():
 def stats10c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "10В").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="10В", title="10В статистика")
 
 
@@ -1265,6 +1345,7 @@ def stats10c():
 def stats11a():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "11А").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="11А", title="11А статистика")
 
 
@@ -1273,6 +1354,7 @@ def stats11a():
 def stats11b():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "11Б").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="11Б", title="11Б статистика")
 
 
@@ -1281,6 +1363,7 @@ def stats11b():
 def stats11c():
     db_sess = db_session.create_session()
     pupils = db_sess.query(Pupils).filter(Pupils.grade == "11В").all()
+    db_sess.close()
     return render_template("stats_grade.html", db=pupils, grade="11В", title="11В статистика")
 
 
@@ -1288,6 +1371,7 @@ def stats11c():
 def history():
     db_sess = db_session.create_session()
     kilo = db_sess.query(Kilograms)
+    db_sess.close()
     return render_template("history.html", kilo=kilo)
 
 
@@ -1301,10 +1385,7 @@ def logout():
 @app.route("/")
 @app.route("/index")
 def main_page():
-    db_sess = db_session.create_session()
-    kilograms = db_sess.query(Kilograms)
-
-    return render_template("index.html", kilograms=kilograms)
+    return render_template("index.html")
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -1330,6 +1411,7 @@ def reqister():
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
+        db_sess.close()
         return redirect('/')
     return render_template('register.html', title='Регистрация', form=form)
 
@@ -1354,7 +1436,7 @@ def kilo_delete(id):
 
         db_sess.delete(kilo)
         db_sess.commit()
-
+        db_sess.close()
     else:
         abort(404)
     return redirect("/history")
@@ -1370,6 +1452,7 @@ def user_delete(id):
             if user.id != current_user.id and user.got == 0:
                 db_sess.delete(user)
                 db_sess.commit()
+                db_sess.close()
         else:
             abort(404)
 
@@ -1380,6 +1463,7 @@ def user_delete(id):
 def users():
     db_sess = db_session.create_session()
     user = db_sess.query(User)
+    db_sess.close()
     return render_template("users.html", user=user)
 
 
@@ -1415,27 +1499,35 @@ def download_excel():
                 worksheet.write(num, 1, pup.value)
 
         workbook.close()
+        db_sess.close()
 
-        return send_from_directory("E:/Code/Python/Flask_project/", f"{filename}.xlsx")
-    else:
-        return abort(404)
+        return send_from_directory("Flask_project/", f"/Flask_project/{filename}.xlsx")
+
 
 
 def main():
-    db_session.global_init("db/base.db")
+    db_session.global_init("db/base.db") # Файл базы данных со всей информацией
 
-    # db_sess = db_session.create_session()
-    # for j in ["1А", "2А", "2Б", "3А", "3Б", "3В", "4А", "4Б", "4В", "5А", "5Б", "5В", "6А", "6Б", "6В",
-    #           "7А", "7Б", "7В", "8А", "8Б", "8В", "9А", "9Б", "9В", "10А", "10Б", "10В", "11А", "11Б", "11В"]:
-    #     for i in open(f"E:/Code/Python/Flask_project/db/Grades/{j}.txt", encoding="utf-8").readlines():
-    #         pupil = Pupils()
-    #         pupil.name = i.strip()
-    #         pupil.grade = j
-    #         db_sess.add(pupil)
-    #
-    #     db_sess.commit()
+    """
+    Изначально база данных пустая. Следующий закоментированный код создаёт сессию для доступа к базе данных, перебирает
+    каждый учебный класс (в следующем году их количество может измениться), открывает текстовый файл со списком 
+    конкретного класса (названия файлов - {класс}.txt) и создаёт таблицу из двух столбцов: ФИ и класс. После цикла все 
+    изменения в базе данных сохраняются.
+    """
+    """
+    db_sess = db_session.create_session() # Создание сессии для доступа к БД
+    for j in ["1А", "2А", "2Б", "3А", "3Б", "3В", "4А", "4Б", "4В", "5А", "5Б", "5В", "6А", "6Б", "6В", # Перебор классов
+              "7А", "7Б", "7В", "8А", "8Б", "8В", "9А", "9Б", "9В", "10А", "10Б", "10В", "11А", "11Б", "11В"]:
+        for i in open(f"E:/Code/Python/Flask_project/db/Grades/{j}.txt", encoding="utf-8").readlines(): # Перебор ФИ в файле
+            pupil = Pupils() # Экземпляр на одного ученика для добавления в БД
+            pupil.name = i.strip() # Имя из переменной во втором цикле
+            pupil.grade = j # Класс из переменной в первом цикле
+            db_sess.add(pupil) # Добавление ученика в БД
 
-    app.run()
+        db_sess.commit() # Сохранение изменений
+    """
+
+    app.run() # Запуск сайта
 
 
 if __name__ == '__main__':
