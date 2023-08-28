@@ -287,6 +287,9 @@ def post2a():
 @app.route("/post2b", methods=["GET", "POST"])
 @login_required
 def post2b():
+    """
+    Страница с формой отправки данных по 2Б классу
+    """
     grade = "2Б"
     form = forms.pupil.Post2B()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -316,6 +319,9 @@ def post2b():
 @app.route("/post3a", methods=["GET", "POST"])
 @login_required
 def post3a():
+    """
+    Страница с формой отправки данных по 3А классу
+    """
     grade = "3А"
     form = forms.pupil.Post3A()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -345,6 +351,9 @@ def post3a():
 @app.route("/post3b", methods=["GET", "POST"])
 @login_required
 def post3b():
+    """
+    Страница с формой отправки данных по 3Б классу
+    """
     grade = "3Б"
     form = forms.pupil.Post3B()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -374,6 +383,9 @@ def post3b():
 @app.route("/post3c", methods=["GET", "POST"])
 @login_required
 def post3c():
+    """
+    Страница с формой отправки данных по 3В классу
+    """
     grade = "3В"
     form = forms.pupil.Post3C()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -403,6 +415,9 @@ def post3c():
 @app.route("/post4a", methods=["GET", "POST"])
 @login_required
 def post4a():
+    """
+    Страница с формой отправки данных по 4А классу
+    """
     grade = "4А"
     form = forms.pupil.Post4A()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -432,6 +447,9 @@ def post4a():
 @app.route("/post4b", methods=["GET", "POST"])
 @login_required
 def post4b():
+    """
+    Страница с формой отправки данных по 4Б классу
+    """
     grade = "4Б"
     form = forms.pupil.Post4B()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -461,6 +479,9 @@ def post4b():
 @app.route("/post4c", methods=["GET", "POST"])
 @login_required
 def post4c():
+    """
+    Страница с формой отправки данных по 4В классу
+    """
     grade = "4В"
     form = forms.pupil.Post4C()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -490,6 +511,9 @@ def post4c():
 @app.route("/post5a", methods=["GET", "POST"])
 @login_required
 def post5a():
+    """
+    Страница с формой отправки данных по 5А классу
+    """
     grade = "5А"
     form = forms.pupil.Post5A()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -519,6 +543,9 @@ def post5a():
 @app.route("/post5b", methods=["GET", "POST"])
 @login_required
 def post5b():
+    """
+    Страница с формой отправки данных по 5Б классу
+    """
     grade = "5Б"
     form = forms.pupil.Post5B()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -548,6 +575,9 @@ def post5b():
 @app.route("/post5c", methods=["GET", "POST"])
 @login_required
 def post5c():
+    """
+    Страница с формой отправки данных по 5В классу
+    """
     grade = "5В"
     form = forms.pupil.Post5C()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -577,6 +607,9 @@ def post5c():
 @app.route("/post6a", methods=["GET", "POST"])
 @login_required
 def post6a():
+    """
+    Страница с формой отправки данных по 6А классу
+    """
     grade = "6А"
     form = forms.pupil.Post3A()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -606,6 +639,9 @@ def post6a():
 @app.route("/post6b", methods=["GET", "POST"])
 @login_required
 def post6b():
+    """
+    Страница с формой отправки данных по 6Б классу
+    """
     grade = "6Б"
     form = forms.pupil.Post6B()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -635,6 +671,9 @@ def post6b():
 @app.route("/post6c", methods=["GET", "POST"])
 @login_required
 def post6c():
+    """
+    Страница с формой отправки данных по 6В классу
+    """
     grade = "6В"
     form = forms.pupil.Post3C()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -664,6 +703,9 @@ def post6c():
 @app.route("/post7a", methods=["GET", "POST"])
 @login_required
 def post7a():
+    """
+    Страница с формой отправки данных по 7А классу
+    """
     grade = "7А"
     form = forms.pupil.Post7A()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -693,6 +735,9 @@ def post7a():
 @app.route("/post7b", methods=["GET", "POST"])
 @login_required
 def post7b():
+    """
+    Страница с формой отправки данных по 7Б классу
+    """
     grade = "7Б"
     form = forms.pupil.Post7B()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -722,6 +767,9 @@ def post7b():
 @app.route("/post7c", methods=["GET", "POST"])
 @login_required
 def post7c():
+    """
+    Страница с формой отправки данных по 7В классу
+    """
     grade = "7В"
     form = forms.pupil.Post3C()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -751,6 +799,9 @@ def post7c():
 @app.route("/post8a", methods=["GET", "POST"])
 @login_required
 def post8a():
+    """
+    Страница с формой отправки данных по 8А классу
+    """
     grade = "8А"
     form = forms.pupil.Post8A()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -780,6 +831,9 @@ def post8a():
 @app.route("/post8b", methods=["GET", "POST"])
 @login_required
 def post8b():
+    """
+    Страница с формой отправки данных по 8Б классу
+    """
     grade = "8Б"
     form = forms.pupil.Post8B()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -809,6 +863,9 @@ def post8b():
 @app.route("/post8c", methods=["GET", "POST"])
 @login_required
 def post8c():
+    """
+    Страница с формой отправки данных по 8В классу
+    """
     grade = "8В"
     form = forms.pupil.Post8C()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -838,6 +895,9 @@ def post8c():
 @app.route("/post9a", methods=["GET", "POST"])
 @login_required
 def post9a():
+    """
+    Страница с формой отправки данных по 9А классу
+    """
     grade = "9А"
     form = forms.pupil.Post9A()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -867,6 +927,9 @@ def post9a():
 @app.route("/post9b", methods=["GET", "POST"])
 @login_required
 def post9b():
+    """
+    Страница с формой отправки данных по 9Б классу
+    """
     grade = "9Б"
     form = forms.pupil.Post9B()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -896,6 +959,9 @@ def post9b():
 @app.route("/post9c", methods=["GET", "POST"])
 @login_required
 def post9c():
+    """
+    Страница с формой отправки данных по 9В классу
+    """
     grade = "9В"
     form = forms.pupil.Post9C()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -925,6 +991,9 @@ def post9c():
 @app.route("/post10a", methods=["GET", "POST"])
 @login_required
 def post10a():
+    """
+    Страница с формой отправки данных по 10А классу
+    """
     grade = "10А"
     form = forms.pupil.Post10A()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -954,6 +1023,9 @@ def post10a():
 @app.route("/post10b", methods=["GET", "POST"])
 @login_required
 def post10b():
+    """
+    Страница с формой отправки данных по 10Б классу
+    """
     grade = "10Б"
     form = forms.pupil.Post10B()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -983,6 +1055,9 @@ def post10b():
 @app.route("/post10c", methods=["GET", "POST"])
 @login_required
 def post10c():
+    """
+    Страница с формой отправки данных по 10В классу
+    """
     grade = "10В"
     form = forms.pupil.Post10C()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -1012,6 +1087,9 @@ def post10c():
 @app.route("/post11a", methods=["GET", "POST"])
 @login_required
 def post11a():
+    """
+    Страница с формой отправки данных по 11А классу
+    """
     grade = "11А"
     form = forms.pupil.Post11A()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -1041,6 +1119,9 @@ def post11a():
 @app.route("/post11b", methods=["GET", "POST"])
 @login_required
 def post11b():
+    """
+    Страница с формой отправки данных по 11Б классу
+    """
     grade = "11Б"
     form = forms.pupil.Post11B()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -1070,6 +1151,9 @@ def post11b():
 @app.route("/post11c", methods=["GET", "POST"])
 @login_required
 def post11c():
+    """
+    Страница с формой отправки данных по 11В классу
+    """
     form = forms.pupil.Post11C()
     grade = "11В"
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -1097,15 +1181,18 @@ def post11c():
     return render_template("post_form.html", title=grade, form=form, grade=grade)
 
 
-@app.route("/stats1a")
+@app.route("/stats1a") # Адрес страницы со статистикой по 1А классу
 @login_required
 def stats1a():
-    db_sess = db_session.create_session()
-    pupils = db_sess.query(Pupils).filter(Pupils.grade == "1А").all()
-    db_sess.close()
-    return render_template("stats_grade.html", db=pupils, grade="1А", title="1А статистика")
+    """
+    Страница со статистикой по 1А классу пофамильно
+    """
+    db_sess = db_session.create_session() # Сессия с БД
+    pupils = db_sess.query(Pupils).filter(Pupils.grade == "1А").all() # Все ученики 1А класса
+    db_sess.close() # Конец сессии
+    return render_template("stats_grade.html", db=pupils, grade="1А", title="1А статистика") # На страницу передаются все ученики 1А класса
 
-
+# Аналогично с остальными
 @app.route("/stats2a")
 @login_required
 def stats2a():
@@ -1367,53 +1454,62 @@ def stats11c():
     return render_template("stats_grade.html", db=pupils, grade="11В", title="11В статистика")
 
 
-@app.route("/history")
+@app.route("/history") # Адрес страницы с историей отправленных запросов
 def history():
-    db_sess = db_session.create_session()
-    kilo = db_sess.query(Kilograms)
-    db_sess.close()
-    return render_template("history.html", kilo=kilo)
+    """
+    Страница с историей отправленных килограммов
+    """
+    db_sess = db_session.create_session() # Начало сессии с БД
+    kilo = db_sess.query(Kilograms) # Вся таблица базы данных с историей отправлений
+    db_sess.close() # Конец сессии
+    return render_template("history.html", kilo=kilo) # Странице отправляется таблица
 
 
-@app.route('/logout')
+@app.route('/logout') # Адрес страницы, которая обеспечивает выход пользователя
 @login_required
 def logout():
-    logout_user()
-    return redirect("/")
+    """
+    Страница, которая обеспечивает выход пользователя из системы
+    """
+    logout_user() # Выход пользователя
+    return redirect("/") # Направить на главную страницу
 
 
 @app.route("/")
-@app.route("/index")
+@app.route("/index") # Адрес главной страницы
 def main_page():
+    """
+    Главная страница
+    """
     return render_template("index.html")
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST']) # Ссылка на страницу регистрации
 def reqister():
-    form = RegisterForm()
-    if form.validate_on_submit():
-        if form.password.data != form.password_again.data:
+    form = RegisterForm() # Форма регистрации
+    if form.validate_on_submit(): # Если нажата кнопка "Зарегистрировать"
+        if form.password.data != form.password_again.data: # Если введённые пароли не совпадают
             return render_template('register.html', title='Регистрация',
                                    form=form,
-                                   message="Пароли не совпадают")
+                                   message="Пароли не совпадают") # Показать ту же страницу, но с ошибкой
 
-        db_sess = db_session.create_session()
-        if db_sess.query(User).filter(User.email == form.email.data).first():
+        db_sess = db_session.create_session() # Сессия с БД
+        if db_sess.query(User).filter(User.email == form.email.data).first(): # Если удалось найти в БД пользователя по введённой почте
             return render_template('register.html', title='Регистрация',
                                    form=form,
-                                   message="Такой пользователь уже есть")
+                                   message="Такой пользователь уже есть") # Та же страница, но с ошибкой
         user = User(
             name=form.name.data,
             email=form.email.data,
             about=form.about.data,
             is_admin=form.is_admin.data
-        )
-        user.set_password(form.password.data)
-        db_sess.add(user)
-        db_sess.commit()
-        db_sess.close()
-        return redirect('/')
-    return render_template('register.html', title='Регистрация', form=form)
+        ) # Новый пользователь с введённой информацией
+        user.set_password(form.password.data) # Зашифровать введённый пароль
+        db_sess.add(user) # Добавить пользователя в БД
+        db_sess.commit() # Сохранить изменения
+        db_sess.close() # Завершить сессию
+        return redirect('/') # Перейти на главную страницу
+    return render_template('register.html', title='Регистрация', form=form) # Показать страницу с формой регистрации
 
 
 @app.route("/kilo_delete/<int:id>", methods=["GET", "POST"])
