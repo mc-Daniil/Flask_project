@@ -4,9 +4,16 @@ from wtforms import SelectField, IntegerField, SubmitField
 
 
 class Post1A(FlaskForm):
+    """
+    Форма отправки информации по 1А классу. Для работы нужен файл со списком учеников 1А класса
+    """
+    # Поле для имени - список всех ФИ из файла. Обязательно должно быть ввыбрано одно имя
     name = SelectField("Фамилия и имя", choices=[(i.strip()) for i in open(f"db/Grades/1А.txt", encoding="utf-8").readlines()], validators=[DataRequired()])
+    # Поле для кол-ва килограммов - поле для ввода чисел. Обязательно что-то должно быть введено
     value = IntegerField("Килограммы", validators=[DataRequired()])
     submit = SubmitField("Отправить")
+
+# Аналогично с другими классами
 
 
 class Post2A(FlaskForm):
