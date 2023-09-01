@@ -23,7 +23,7 @@ def load_user(user_id):
     return user_id
 
 
-@app.route('/login', methods=['GET', 'POST']) # адрес страницы для входа. Использует методы отправки и принятия данных
+@app.route('/login', methods=['GET', 'POST']) # Адрес страницы для входа. Использует методы отправки и принятия данных
 def login():
     """
     Функция со страницей для авторизации существующих пользователей
@@ -1512,69 +1512,90 @@ def reqister():
     return render_template('register.html', title='Регистрация', form=form) # Показать страницу с формой регистрации
 
 
-@app.route("/kilo_delete/<int:id>", methods=["GET", "POST"])
+@app.route("/kilo_delete/<int:id>", methods=["GET", "POST"]) # Адрес страницы для удаления из БД чьих-то килограммов
 @login_required
 def kilo_delete(id):
-    db_sess = db_session.create_session()
-    kilo = db_sess.query(Kilograms).filter(Kilograms.id == id).first()
-    if kilo:
-        user_id = kilo.user_id
-        pupil_id = kilo.pupil_id
-        value = kilo.value
+    """
+    Удаление из БД записи о сданных учеником килограммах по полученному ID.
+    :param id:
+    :return:
+    """
+    db_sess = db_session.create_session() # Сессия с БД
+    kilo = db_sess.query(Kilograms).filter(Kilograms.id == id).first() # Извлечь чьи-то колиграммы по полученному ID
+    if kilo: # Если запись нашлась
+        user_id = kilo.user_id # Извлечь ID волонтёра
+        pupil_id = kilo.pupil_id # Извдечь ID ученика
+        value = kilo.value # Извлечь кол-во килограммов
 
-        user = db_sess.query(User).filter(User.id == user_id).first()
-        pupil = db_sess.query(Pupils).filter(Pupils.id == pupil_id).first()
+        user = db_sess.query(User).filter(User.id == user_id).first() # Найти в БД волонтёра по его ID
+        pupil = db_sess.query(Pupils).filter(Pupils.id == pupil_id).first() # Найти в БД ученика по его ID
 
-        user.got_pupils -= 1
-        user.got -= value
+        user.got_pupils -= 1 # Уменьшаем кол-во обслуженных волонтёром учеников
+        user.got -= value # Уменьшаем кол-во собранных волонтёром килограммов
 
-        pupil.value -= value
+        pupil.value -= value # Уменьшаем кол-во сданных учеником килограммов
 
-        db_sess.delete(kilo)
-        db_sess.commit()
-        db_sess.close()
+        db_sess.delete(kilo) # Удаляем из БД килограммы
+        db_sess.commit() # Сохраняем изменения
+        db_sess.close() # Завершаем сессию
     else:
-        abort(404)
-    return redirect("/history")
+        abort(404) # Если в БД нет нужно записи, возвращаем ошибку 404
+    return redirect("/history") # Переходим на страницу с историей отправки килограммов
 
 
-@app.route("/user_delete/<int:id>", methods=["GET", "POST"])
+@app.route("/user_delete/<int:id>", methods=["GET", "POST"]) # Адрес страницы для удаление волонтёра по его ID
 @login_required
 def user_delete(id):
-    if current_user.is_admin:
-        db_sess = db_session.create_session()
-        user = db_sess.query(User).filter(User.id == id).first()
-        if user:
-            if user.id != current_user.id and user.got == 0:
-                db_sess.delete(user)
-                db_sess.commit()
-                db_sess.close()
+    """
+    Функция удаляет из БД волонтёра по его ID.
+    TODO Нельзя удалить волонтёра, который отправил информацию по килограммам
+    :param id:
+    :return:
+    """
+    if current_user.is_admin: # Если текущий пользователь - админ
+        db_sess = db_session.create_session() # Сессия с БД
+        user = db_sess.query(User).filter(User.id == id).first() # Извлечь из БД волонтёра по полученному ID
+        if user: # Если в БД есть такой волонтёр
+            if user.id != current_user.id and user.got == 0: # Если волонтёр не удаляет себя и удаляемый волонтёр ничего не собрал
+                db_sess.delete(user) # Удаляем
+                db_sess.commit() # Сохраняем
+                db_sess.close() # Завершаем сессию
         else:
-            abort(404)
+            abort(404) # Иначе ошибка 404
 
-    return redirect("/users")
+    return redirect("/users") # Переходим на страницу с пользователями
 
 
-@app.route("/users")
+@app.route("/users") # Адрес страницы с волонтёрами
 def users():
-    db_sess = db_session.create_session()
-    user = db_sess.query(User)
-    db_sess.close()
-    return render_template("users.html", user=user)
+    """
+    Страница с волонтёрами. Показывает информацию о всех волонтёрах
+    :return:
+    """
+    db_sess = db_session.create_session() # Сессия с БД
+    user = db_sess.query(User) # Извлечь всех пользователей
+    db_sess.close() # Завершить сессию
+    return render_template("users.html", user=user) # Передать странице информацию о всех пользователях
 
 
 @login_required
-@app.route("/download_excel")
+@app.route("/download_excel") # Адрес страницы для загрузки отчёта в файле .xlsx
 def download_excel():
+    """
+    При нажатии на кнопку скачивается .xlsx файл с отчётом по всем классам
+    TODO В глобальной версии не загружается xlsx файл, поэтому в глобальной версии загружается файл базы данных
+    :return:
+    """
+    # Суммарное кол-во собранных классами килограммов
     global sum_1a, sum_2a, sum_2b, sum_3a, sum_3b, sum_3c, sum_4a, sum_4b, sum_4c, sum_5a, sum_5b, sum_5c, \
         sum_6a, sum_6b, sum_6c, sum_7a, sum_7b, sum_7c, sum_8a, sum_8b, sum_8c, sum_9a, sum_9b, sum_9c, \
         sum_10a, sum_10b, sum_10c, sum_11a, sum_11b, sum_11c
 
-    if current_user.is_admin:
-        db_sess = db_session.create_session()
-        tf = tempfile.NamedTemporaryFile()
-        filename = tf.name.split("\\")[-1]
-        workbook = xlsxwriter.Workbook(f'{filename}.xlsx')
+    if current_user.is_admin: # Если текущий пользователь - админ
+        db_sess = db_session.create_session() # Сессия с БД
+        tf = tempfile.NamedTemporaryFile() # Файл для заполнения
+        filename = tf.name.split("\\")[-1] # Имя файла
+        workbook = xlsxwriter.Workbook(f'{filename}.xlsx') # Создать файл
         grades = ["1А", "2А", "2Б", "3А", "3Б", "3В", "4А", "4Б", "4В", "5А", "5Б", "5В", "6А", "6Б", "6В",
                   "7А", "7Б", "7В", "8А", "8Б", "8В", "9А", "9Б", "9В", "10А", "10Б", "10В", "11А", "11Б", "11В"]
 
@@ -1582,22 +1603,21 @@ def download_excel():
         sum_6a, sum_6b, sum_6c, sum_7a, sum_7b, sum_7c, sum_8a, sum_8b, sum_8c, sum_9a, sum_9b, sum_9c, \
         sum_10a, sum_10b, sum_10c, sum_11a, sum_11b, sum_11c]
 
-        worksheet = workbook.add_worksheet("Все классы")
+        worksheet = workbook.add_worksheet("Все классы") # Создать лист
         for i in range(len(grades)):
-            worksheet.write(i, 0, grades[i])
-            worksheet.write(i, 1, sums[i])
+            worksheet.write(i, 0, grades[i]) # Записать в итую ячейку в первый столбик класс
+            worksheet.write(i, 1, sums[i]) # Записать в итую ячейку во второй столбик сумму килограммов, собранную классом
 
         for i in grades:
-            worksheet = workbook.add_worksheet(f"{i}")
-            pupils = db_sess.query(Pupils).filter(Pupils.grade == i).all()
+            worksheet = workbook.add_worksheet(f"{i}") # Создать таблицу по каждому классу
+            pupils = db_sess.query(Pupils).filter(Pupils.grade == i).all() # Извлечь всех учеников класса
             for num, pup in list(enumerate(pupils)):
-                worksheet.write(num, 0, pup.name)
-                worksheet.write(num, 1, pup.value)
+                worksheet.write(num, 0, pup.name) # Записать в первый столбик имя ученика
+                worksheet.write(num, 1, pup.value) # Записать во второй столбик кол-во киограммов, собранных учеником
 
-        workbook.close()
-        db_sess.close()
-
-        return send_from_directory("Flask_project/", f"/Flask_project/{filename}.xlsx")
+        workbook.close() # Закрыть excel
+        db_sess.close() # Завершить сессию с БД
+        return send_from_directory("Flask_project/", f"/Flask_project/{filename}.xlsx") # Загрузить файл
 
 
 
