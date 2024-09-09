@@ -1617,6 +1617,7 @@ def download_excel():
 
         workbook.close() # Закрыть excel
         db_sess.close() # Завершить сессию с БД
+        # return send_from_directory("db/", f"base.db")
         return send_from_directory("Flask_project/", f"/Flask_project/{filename}.xlsx") # Загрузить файл
 
 
