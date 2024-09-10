@@ -16,6 +16,12 @@ class Post1A(FlaskForm):
 # Аналогично с другими классами
 
 
+class Post1B(FlaskForm):
+    name = SelectField("Фамилия и имя", choices=[(i.strip()) for i in open(f"db/Grades/1Б.txt", encoding="utf-8").readlines()], validators=[DataRequired()])
+    value = IntegerField("Килограммы", validators=[DataRequired()])
+    submit = SubmitField("Отправить")
+
+
 class Post2A(FlaskForm):
     name = SelectField("Фамилия и имя", choices=[(i.strip()) for i in open(f"db/Grades/2А.txt", encoding="utf-8").readlines()], validators=[DataRequired()])
     value = IntegerField("Килограммы", validators=[DataRequired()])
@@ -40,12 +46,6 @@ class Post3B(FlaskForm):
     submit = SubmitField("Отправить")
 
 
-class Post3C(FlaskForm):
-    name = SelectField("Фамилия и имя", choices=[(i.strip()) for i in open(f"db/Grades/3В.txt", encoding="utf-8").readlines()], validators=[DataRequired()])
-    value = IntegerField("Килограммы", validators=[DataRequired()])
-    submit = SubmitField("Отправить")
-
-
 class Post4A(FlaskForm):
     name = SelectField("Фамилия и имя",
                        choices=[(i.strip()) for i in open(f"db/Grades/4А.txt", encoding="utf-8").readlines()],
@@ -57,14 +57,6 @@ class Post4A(FlaskForm):
 class Post4B(FlaskForm):
     name = SelectField("Фамилия и имя",
                        choices=[(i.strip()) for i in open(f"db/Grades/4Б.txt", encoding="utf-8").readlines()],
-                       validators=[DataRequired()])
-    value = IntegerField("Килограммы", validators=[DataRequired()])
-    submit = SubmitField("Отправить")
-
-
-class Post4C(FlaskForm):
-    name = SelectField("Фамилия и имя",
-                       choices=[(i.strip()) for i in open(f"db/Grades/4В.txt", encoding="utf-8").readlines()],
                        validators=[DataRequired()])
     value = IntegerField("Килограммы", validators=[DataRequired()])
     submit = SubmitField("Отправить")
